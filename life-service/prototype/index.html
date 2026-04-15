@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LifeHub Prototype AB Preview</title>
+  <link rel="stylesheet" href="./system/tokens.css" />
+  <link rel="stylesheet" href="./system/components/preview-shell.css" />
+</head>
+<body>
+  <main class="ab-shell" id="abShell">
+    <aside class="control-panel" aria-label="프리뷰 외 컨트롤 패널">
+      <div class="control-panel__row control-panel__row--top">
+        <div class="viewport-toggle" role="group" aria-label="해상도 토글">
+          <button type="button" class="viewport-toggle__btn is-active" data-preset="mobile">Mobile</button>
+          <button type="button" class="viewport-toggle__btn" data-preset="tablet">Tablet</button>
+          <button type="button" class="viewport-toggle__btn" data-preset="desktop">Desktop</button>
+        </div>
+        <div class="dimension-controls">
+          <label class="dimension-input">
+            <span>W</span>
+            <input id="frameWidthInput" type="text" value="360" inputmode="numeric" />
+            <span>px</span>
+          </label>
+          <label class="dimension-input">
+            <span>H</span>
+            <input id="frameHeightInput" type="text" value="812" inputmode="numeric" />
+            <span>px</span>
+          </label>
+          <input id="frameWidthRange" class="width-range" type="range" min="360" max="1920" value="360" />
+        </div>
+        <select id="pageMenuSelect" class="page-dropdown__select" aria-label="페이지 메뉴 드롭다운"></select>
+      </div>
+    </aside>
+
+    <section class="preview-pane" aria-label="프리뷰 영역">
+      <div class="preview-stage" id="previewStage">
+        <div class="frame-shell">
+          <button type="button" class="frame-resizer frame-resizer--left" aria-label="프레임 너비 줄이기/늘리기"></button>
+          <div class="ab-frame" id="abFrame">
+            <iframe id="ab-preview" class="ab-preview" src="./hub.html" title="AB Prototype Preview"></iframe>
+          </div>
+          <button type="button" class="frame-resizer frame-resizer--right" aria-label="프레임 너비 줄이기/늘리기"></button>
+        </div>
+      </div>
+      <div class="status-strip">
+        <span id="frameSizeText">Frame: 360 × 812</span>
+        <span id="breakpointText">Breakpoint: Mobile</span>
+      </div>
+      <button type="button" class="frame-resizer frame-resizer--bottom" aria-label="프레임 높이 줄이기/늘리기"></button>
+    </section>
+  </main>
+  <script src="./system/components/preview-shell.js"></script>
+</body>
+</html>

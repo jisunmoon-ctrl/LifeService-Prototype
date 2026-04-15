@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>신청폼 디렉토리 관리</title>
+  <link rel="stylesheet" href="../../tokens.css" />
+  <style>
+    body { margin: 0; padding: 24px; font-family: var(--ods-font-family); background: var(--ods-color-gray-50); color: var(--ods-color-foreground); letter-spacing: var(--ods-letter-spacing-default); }
+    h1 { margin: 0 0 8px; font: 700 20px/28px var(--ods-font-family); color: var(--ods-color-gray-900); }
+    p { margin: 0 0 16px; font: 400 14px/20px var(--ods-font-family); color: var(--ods-color-gray-400); }
+    .list { display: grid; gap: 8px; max-width: 760px; }
+    .item { border: 1px solid var(--ods-color-gray-150); border-radius: 10px; background: var(--ods-color-white); padding: 12px; }
+    .item strong { display: block; font: 600 13px/18px var(--ods-font-family); color: var(--ods-color-gray-900); }
+    .item code { display: block; margin-top: 4px; font: 400 12px/16px var(--ods-font-family); color: var(--ods-color-gray-400); word-break: break-all; }
+    a { color: var(--ods-color-genuine-blue-350); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <h1>신청폼 페이지 관리</h1>
+  <p>프리뷰 패널의 신청폼 3depth 메뉴에서 호출하는 외부 URL 목록입니다.</p>
+  <div class="list">
+    <article class="item"><strong>FORM_MOVING — 이사신청</strong><code>https://ohou.se/experts/moving</code><a href="https://ohou.se/experts/moving" target="_blank" rel="noreferrer">페이지 열기</a></article>
+    <article class="item"><strong>FORM_REMODELING — 시공업체신청</strong><code>https://o2o.ohou.se/remodeling/home/discovery</code><a href="https://o2o.ohou.se/remodeling/home/discovery" target="_blank" rel="noreferrer">페이지 열기</a></article>
+    <article class="item"><strong>FORM_PART_TAB_KITCHEN — 부분시공 카테고리별 탭 랜딩</strong><code>https://o2o.ohou.se/remodeling/direct-part/intro?tab=kitchen&inflow=KITCHEN_SHORTCUT</code><a href="https://o2o.ohou.se/remodeling/direct-part/intro?tab=kitchen&inflow=KITCHEN_SHORTCUT" target="_blank" rel="noreferrer">페이지 열기</a></article>
+    <article class="item"><strong>FORM_PART_FIND — 부분시공 업체 찾기</strong><code>https://o2o.ohou.se/remodeling/part</code><a href="https://o2o.ohou.se/remodeling/part" target="_blank" rel="noreferrer">페이지 열기</a></article>
+    <article class="item"><strong>FORM_RENTAL — 렌탈</strong><code>https://store.ohou.se/brands/101601</code><a href="https://store.ohou.se/brands/101601" target="_blank" rel="noreferrer">페이지 열기</a></article>
+    <article class="item"><strong>FORM_REPAIR — 제품설치</strong><code>https://o2o.ohou.se/repair</code><a href="https://o2o.ohou.se/repair" target="_blank" rel="noreferrer">페이지 열기</a></article>
+    <article class="item"><strong>FORM_CLEANING — 입주청소</strong><code>https://ohou.se/competitions/917</code><a href="https://ohou.se/competitions/917" target="_blank" rel="noreferrer">페이지 열기</a></article>
+  </div>
+</body>
+</html>

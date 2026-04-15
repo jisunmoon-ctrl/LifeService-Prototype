@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>생활서비스 허브 A안(탭 분리 IA)</title>
+  <link rel="stylesheet" href="./assets/hub.css" />
+</head>
+<body class="hub-view--pre">
+  <main class="app">
+    <!-- DESKTOP NAVIGATION (768+) -->
+    <header class="desktop-nav" aria-label="데스크톱 공통 네비게이션">
+      <div class="desktop-nav__primary">
+        <div class="desktop-nav__brand">
+          <span class="desktop-nav__brand-dot" aria-hidden="true"></span>
+          <strong>오늘의집</strong>
+        </div>
+        <nav class="desktop-nav__main-tabs" aria-label="메인 탭">
+          <button type="button" class="desktop-nav__main-tab">커뮤니티</button>
+          <button type="button" class="desktop-nav__main-tab">쇼핑</button>
+          <button type="button" class="desktop-nav__main-tab is-active">인테리어/생활</button>
+        </nav>
+        <div class="desktop-nav__actions">
+          <div class="desktop-nav__search">
+            <svg class="catalog-icon" width="16" height="16" aria-hidden="true"><use href="./assets/ohouse-catalog-icons.svg#catalog-magnifying-glass"/></svg>
+            <span>통합검색</span>
+          </div>
+          <button type="button" class="desktop-nav__text-btn">로그인</button>
+          <button type="button" class="desktop-nav__text-btn">회원가입</button>
+          <button type="button" class="desktop-nav__cta">글쓰기</button>
+        </div>
+      </div>
+      <div class="desktop-nav__secondary">
+        <div class="desktop-nav__secondary-scroll">
+          <button type="button" class="desktop-nav__sub-tab is-active">홈</button>
+          <button type="button" class="desktop-nav__sub-tab">전체시공</button>
+          <button type="button" class="desktop-nav__sub-tab">부분시공</button>
+          <button type="button" class="desktop-nav__sub-tab">아파트시공사례</button>
+          <button type="button" class="desktop-nav__sub-tab">이사</button>
+          <button type="button" class="desktop-nav__sub-tab">입주청소</button>
+          <button type="button" class="desktop-nav__sub-tab">인터넷</button>
+          <button type="button" class="desktop-nav__sub-tab">렌탈</button>
+          <button type="button" class="desktop-nav__sub-tab">설치·수리</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- HEADER -->
+    <header class="header" id="mainHeader">
+      <div class="status-bar">
+        <span class="time">9:41</span>
+        <img src="./assets/components/header/levels.svg" alt="" class="levels" />
+      </div>
+
+      <div class="search-nav">
+        <button class="gnb-icon-btn" aria-label="메뉴"><img src="./assets/components/header/gnb-menu.svg" alt="" width="24" height="24" /></button>
+        <div class="search-field">
+          <svg class="catalog-icon search-icon" width="16" height="16" aria-hidden="true"><use href="./assets/ohouse-catalog-icons.svg#catalog-magnifying-glass"/></svg>
+          <span>오늘의집 통합검색</span>
+        </div>
+        <button class="gnb-icon-btn" aria-label="스크랩"><img src="./assets/components/header/gnb-bookmark.svg" alt="" width="24" height="24" /></button>
+        <button class="gnb-icon-btn" aria-label="알림"><img src="./assets/components/header/gnb-bell.svg" alt="" width="24" height="24" /></button>
+        <button class="gnb-icon-btn" aria-label="장바구니"><img src="./assets/components/header/gnb-cart.svg" alt="" width="24" height="24" /></button>
+      </div>
+
+    </header>
+
+    <!-- Sticky scroll carousel (appears when life services panel is scrolled) -->
+    <div class="scroll-carousel" id="scrollCarousel" hidden>
+      <div class="scroll-carousel-pills">
+        <button class="carousel-pill">
+          <span>이사 견적</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4.5 11.5L11.5 4.5M11.5 4.5H5.5M11.5 4.5V10.5" stroke="#141414" stroke-width="1.2"/></svg>
+        </button>
+        <button class="carousel-pill">
+          <span>인터넷 신청</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4.5 11.5L11.5 4.5M11.5 4.5H5.5M11.5 4.5V10.5" stroke="#141414" stroke-width="1.2"/></svg>
+        </button>
+        <button class="carousel-pill">
+          <span>가전 렌탈</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4.5 11.5L11.5 4.5M11.5 4.5H5.5M11.5 4.5V10.5" stroke="#141414" stroke-width="1.2"/></svg>
+        </button>
+        <button class="carousel-pill">
+          <span>입주청소</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4.5 11.5L11.5 4.5M11.5 4.5H5.5M11.5 4.5V10.5" stroke="#141414" stroke-width="1.2"/></svg>
+        </button>
+        <button class="carousel-pill">
+          <span>설치 수리</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4.5 11.5L11.5 4.5M11.5 4.5H5.5M11.5 4.5V10.5" stroke="#141414" stroke-width="1.2"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ======================== TAB 1: 인테리어시공 (Construction) ======================== -->
+    <section class="panel panel-interior is-active" data-panel="interior">
+      <!-- Address Bar -->
+      <div class="address-bar">
+        <div class="address-left">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 1.5C5.685 1.5 3 4.185 3 7.5C3 12.375 9 16.5 9 16.5C9 16.5 15 12.375 15 7.5C15 4.185 12.315 1.5 9 1.5Z" stroke="#C1C1C1" stroke-width="1.2"/><circle cx="9" cy="7.5" r="2" stroke="#C1C1C1" stroke-width="1.2"/></svg>
+          <span>서울특별시 송파구 올림픽로 135 (잠실...</span>
+        </div>
+        <button class="address-change">주소변경</button>
+      </div>
+      <div class="divider-thin"></div>
+
+      <!-- ATF: 통합 오퍼링 + 메뉴 (Figma 허브페이지_2026) -->
+      <div class="interior-atf-section">
+        <!-- 오퍼링 배너 복원 시: hidden, aria-hidden="true" 제거 -->
+        <a href="#" class="atf-offering-banner" id="atfOfferingBanner" hidden aria-hidden="true">
+          <div class="atf-offering-banner__copy">
+            <p class="atf-offering-banner__eyebrow">시공·이사·인터넷 한 번에 신청하면</p>
+            <p class="atf-offering-banner__headline">
+              <span class="atf-offering-banner__headline-line">쇼핑 지원금 </span><span class="atf-offering-banner__headline-accent">최대 112만원</span>
+            </p>
+          </div>
+          <span class="atf-offering-banner__badge" aria-hidden="true">
+            <img src="./assets/components/interior-atf/atf-offering-motion-badge.png" alt="" width="48" height="48" />
+          </span>
+          <span class="atf-offering-banner__cta">바로 상담</span>
+        </a>
+
+        <!-- 계약 후: ProgressDashboard (Figma 739:55688) — ATF 첫 순서 -->
+        <div class="progress-dashboard hub-post-only" id="hubProgressDashboard" aria-label="시공 진행 현황">
+          <div class="progress-dashboard__card">
+            <button type="button" class="progress-dashboard__status">
+              <span class="progress-dashboard__icon" aria-hidden="true">
+                <img src="./assets/components/hub-post/atf-wrench-house.svg" alt="" width="24" height="24" />
+              </span>
+              <span class="progress-dashboard__main">
+                <span class="progress-dashboard__headline">
+                  <span class="progress-dashboard__title">집 전체 시공</span>
+                  <span class="progress-dashboard__count">2</span>
+                </span>
+                <span class="progress-dashboard__desc-row">
+                  <span class="progress-dashboard__sub">업체가 상담 신청 내용을 확인 중이에요.</span>
+                  <span class="progress-dashboard__dot" aria-hidden="true"></span>
+                </span>
+              </span>
+              <svg class="catalog-chevron progress-dashboard__chevron" width="12" height="12" aria-hidden="true"><use href="./assets/ohouse-catalog-icons.svg#catalog-chevron-right"/></svg>
+            </button>
+            <div class="progress-dashboard__divider" role="presentation"></div>
+            <div class="progress-dashboard__actions">
+              <a href="#" class="progress-dashboard__action">전체 신청내역</a>
+              <span class="progress-dashboard__vd" role="presentation"></span>
+              <a href="#" class="progress-dashboard__action progress-dashboard__action--chat">
+                채팅
+                <span class="progress-dashboard__badge" aria-label="읽지 않은 메시지 9개">9</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="atf-menu">
+          <div class="atf-menu-grid" role="group" aria-label="주요 견적 메뉴">
+            <button type="button" class="atf-menu-grid-btn">
+              <span class="atf-menu-grid-btn__text">
+                <span class="atf-menu-grid-btn__title-row">
+                  <span class="atf-menu-grid-btn__title">전체 시공 업체 찾기</span>
+                  <svg class="catalog-chevron atf-menu-chevron" width="12" height="12" aria-hidden="true"><use href="./assets/ohouse-catalog-icons.svg#catalog-chevron-right"/></svg>
+                </span>
+                <span class="atf-menu-grid-btn__desc">오늘의집이 시공하자,<br />A/S 보장</span>
+              </span>
+              <span class="atf-menu-grid-btn__asset" aria-hidden="true">
+                <img src="./assets/components/interior-atf/atf-grid-house-drill.png" alt="" width="60" height="60" />
+              </span>
+            </button>
+            <button type="button" class="atf-menu-grid-btn">
+              <span class="atf-menu-grid-btn__text">
+                <span class="atf-menu-grid-btn__title-row">
+                  <span class="atf-menu-grid-btn__title">이사 견적</span>
+                  <svg class="catalog-chevron atf-menu-chevron" width="12" height="12" aria-hidden="true"><use href="./assets/ohouse-catalog-icons.svg#catalog-chevron-right"/></svg>
+                </span>
+                <span class="atf-menu-grid-btn__desc">합리적인 견적, 파손 보장</span>
+              </span>
+              <span class="atf-menu-grid-btn__asset" aria-hidden="true">
+                <img src="./assets/components/interior-atf/atf-grid-moving.png" alt="" width="60" height="60" />
+              </span>
+            </button>
+          </div>
+
+          <div class="atf-menu-list-wide">
+            <p class="atf-menu-list-wide__title">원하는 부분만 견적 받기</p>
+            <div class="atf-menu-list-wide__row">
+              <div class="atf-menu-list-wide__items">
+                <button type="button" class="atf-menu-partial">
+                  <span class="atf-menu-partial__img">
+                    <img src="./assets/components/interior-atf/atf-cat-kitchen.png" alt="" width="40" height="40" />
+                    <span class="atf-menu-partial__badge">N</span>
+                  </span>
+                  <span class="atf-menu-partial__label">주방</span>
+                </button>
+                <button type="button" class="atf-menu-partial">
+                  <span class="atf-menu-partial__img"><img src="./assets/components/interior-atf/atf-cat-dobae.png" alt="" width="40" height="40" /></span>
+                  <span class="atf-menu-partial__label">도배</span>
+                </button>
+                <button type="button" class="atf-menu-partial">
+                  <span class="atf-menu-partial__img"><img src="./assets/components/interior-atf/atf-cat-maru.png" alt="" width="40" height="40" /></span>
+                  <span class="atf-menu-partial__label">마루</span>
+                </button>
+                <button type="button" class="atf-menu-partial">
+                  <span class="atf-menu-partial__img"><img src="./assets/components/interior-atf/atf-cat-jangpan.png" alt="" width="40" height="40" /></span>
+                  <span class="atf-menu-partial__label">장판</span>
+                </button>
+              </div>
+              <button type="button" class="atf-menu-more">
+                <span class="atf-menu-more__icon" aria-hidden="true">
+                  <svg class="catalog-chevron atf-menu-chevron" width="12" height="12"><use href="./assets/ohouse-catalog-icons.svg#catalog-chevron-right"/></svg>
+                </span>
+                <span class="atf-menu-more__label">더보기</span>
+              </button>
+            </div>
+            <div class="atf-menu-list-wide__divider" role="presentation"></div>
+            <button type="button" class="atf-menu-partial-cta">
+              <span class="atf-menu-partial-cta__left">
+                <span class="atf-menu-partial-cta__icon" aria-hidden="true">
+                  <img src="./assets/components/interior-atf/atf-worker.svg" alt="" width="18" height="18" />
+                </span>
+                <span class="atf-menu-partial-cta__text">부분 시공 업체 찾기</span>
+              </span>
+              <svg class="catalog-chevron atf-menu-chevron" width="12" height="12" aria-hidden="true"><use href="./assets/ohouse-catalog-icons.svg#catalog-chevron-right"/></svg>
+            </button>
+          </div>
+
+          <div class="atf-menu-compact-grid" role="group" aria-label="인터넷·정수기 렌탈·설치 수리·입주청소 메뉴">
+            <a href="#" class="atf-menu-compact-card">
+              <span class="atf-menu-compact-card__asset" aria-hidden="true">
+                <img src="./assets/components/interior-atf/atf-compact-router.png" alt="" width="40" height="40" />
+              </span>
+              <span class="atf-menu-compact-card__title">인터넷</span>
+            </a>
+            <a href="#" class="atf-menu-compact-card">
+              <span class="atf-menu-compact-card__asset" aria-hidden="true">
+                <img src="./assets/components/interior-atf/atf-compact-purifier.png" alt="" width="40" height="40" />
+              </span>
+              <span class="atf-menu-compact-card__title">정수기 렌탈</span>
+            </a>
+            <a href="#" class="atf-menu-compact-card">
+              <span class="atf-menu-compact-card__asset" aria-hidden="true">
+                <img src="./assets/components/interior-atf/atf-compact-install.png" alt="" width="40" height="40" />
+              </span>
+              <span class="atf-menu-compact-card__title">설치·수리</span>
+            </a>
+            <a href="#" class="atf-menu-compact-card">
+              <span class="atf-menu-compact-card__asset" aria-hidden="true">
+                <img src="./assets/components/interior-atf/atf-compact-cleaning.png" alt="" width="40" height="40" />
+              </span>
+              <span class="atf-menu-compact-card__title">입주청소</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <section class="atf-moving-reviews" id="atfMovingReviews" aria-label="이사 업체 후기">
+        <div class="portfolio-bundle">
+          <h2 class="portfolio-bundle__title">서울·경기권 인기 이사 파트너 후기</h2>
+          <div class="portfolio-bundle__companies-scroll">
+            <div class="portfolio-bundle__companies" id="atfPortfolioCompanyRow" role="tablist" aria-label="이사업체 선택"></div>
+          </div>
+          <div class="portfolio-bundle__items-scroll">
+            <div class="portfolio-bundle__items" id="atfPortfolioItemRow" aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Nearby Contractors -->
+      <div class="section-divider"></div>
+      <div class="interior-module">
+        <div class="section-head"><h2 class="section-title" id="interior-company-title">송파구 주변 추천 시공업체</h2></div>
+        <div class="interior-company-scroll">
+          <div id="interior-company-carousel"></div>
+        </div>
+        <button class="more-btn">더보기 <svg class="catalog-chevron" width="12" height="12" aria-hidden="true"><use href="./assets/ohouse-catalog-icons.svg#catalog-chevron-right"/></svg></button>
+      </div>
+
+      <!-- Section: Service Suggestions -->
+      <div class="section-divider"></div>
+      <div class="interior-module">
+        <div class="section-head"><h2 class="section-title">이런 시공 서비스는 어떠세요?</h2></div>
+        <div class="shortcut-grid">
+          <div class="shortcut-item">
+            <div class="shortcut-icon" style="height:50px;display:flex;align-items:center;justify-content:center;">
+              <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><rect x="3" y="5" width="24" height="20" rx="2" stroke="#8B8BE8" stroke-width="1.5" fill="#CDCDFA"/><path d="M9 15H21M9 19H17" stroke="#36367A" stroke-width="1.5"/></svg>
+            </div>
+            <span>견적계산기</span>
+          </div>
+          <div class="shortcut-item">
+            <div class="shortcut-icon" style="height:50px;display:flex;align-items:center;justify-content:center;">
+              <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><rect x="5" y="8" width="20" height="16" rx="1" stroke="#424242" stroke-width="1.5" fill="#F5F5F5"/><rect x="8" y="4" width="3" height="6" rx="1" fill="#9E9E9E"/><rect x="19" y="4" width="3" height="6" rx="1" fill="#9E9E9E"/><path d="M10 20V16" stroke="#188144" stroke-width="2"/></svg>
+            </div>
+            <span>아파트 사례</span>
+          </div>
+          <div class="shortcut-item">
+            <div class="shortcut-icon" style="height:50px;display:flex;align-items:center;justify-content:center;">
+              <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><rect x="4" y="4" width="22" height="22" rx="3" stroke="#757575" stroke-width="1.5"/><path d="M10 10L15 15L20 10" stroke="#757575" stroke-width="1.5"/></svg>
+            </div>
+            <span>자재랭킹</span>
+          </div>
+          <div class="shortcut-item">
+            <div class="shortcut-icon" style="height:50px;display:flex;align-items:center;justify-content:center;">
+              <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="10" stroke="#757575" stroke-width="1.5"/><path d="M12 14H18M15 11V17" stroke="#757575" stroke-width="1.5"/></svg>
+            </div>
+            <span>전체서비스</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Latest Reviews -->
+      <div class="section-divider"></div>
+      <div class="interior-module">
+        <div class="section-head">
+          <h2 class="section-title" id="interior-review-title">최신 송파구 주변 리뷰</h2>
+        </div>
+        <p class="section-subtitle" id="interior-review-subtitle">설정된 주소지 반경 4km 내 리뷰를 보여드려요.</p>
+        <div class="review-image-scroll" id="interior-review-scroll">
+          <article class="review-image-card">
+            <div class="review-image-thumb" style="background:#ddd;"></div>
+            <p class="review-image-title">42평・시화청솔아파트</p>
+            <p class="review-image-text">예약하고 첫 미팅때부터 기본적인 도면이며 시공사례등 다 준비를 미리 해주셔서 믿음이 갔습니다...</p>
+            <p class="review-image-company">토니인테리어</p>
+          </article>
+          <article class="review-image-card">
+            <div class="review-image-thumb" style="background:#ccc;"></div>
+            <p class="review-image-title">12평 ・원룸&오피스텔</p>
+            <p class="review-image-text">생애 첫 인테리어라 5군데 넘는 곳을 상담하고 결정한 곳입니다...</p>
+            <p class="review-image-company">보운디자인 인테리어</p>
+          </article>
+          <article class="review-image-card">
+            <div class="review-image-thumb" style="background:#bbb;"></div>
+            <p class="review-image-title">24평</p>
+            <p class="review-image-text">다섯군데 견적을 받았었는데 남는게 있을까 싶을정도로 견적을 저렴하고 상세히 뽑아...</p>
+            <p class="review-image-company">스타크</p>
+          </article>
+        </div>
+      </div>
+
+      <!-- Section: Apartment Quote Rankings -->
+      <div class="section-divider"></div>
+      <div class="interior-module">
+        <div class="section-head"><h2 class="section-title">아파트 종합시공 견적 순위</h2></div>
+        <div class="quote-chips">
+          <button class="chip active">20평대</button>
+          <button class="chip">30평대</button>
+          <button class="chip">40평대</button>
+        </div>
+        <div class="quote-chart">
+          <div class="chart-bar-group">
+            <div class="chart-label">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L11 7H7L9 2Z" fill="#FFC300"/><path d="M5 7H13V9H5V7Z" fill="#FFC300"/></svg>
+              <span class="chart-label-text winner">4천만원대</span>
+            </div>
+            <div class="chart-bar chart-bar-active" style="height:120px;">
+              <span>29%</span>
+            </div>
+          </div>
+          <div class="chart-bar-group">
+            <div class="chart-label">
+              <span class="chart-label-text">3천만원대</span>
+            </div>
+            <div class="chart-bar chart-bar-inactive" style="height:96px;">
+              <span>23%</span>
+            </div>
+          </div>
+          <div class="chart-bar-group">
+            <div class="chart-label">
+              <span class="chart-label-text">5천만원대</span>
+            </div>
+            <div class="chart-bar chart-bar-inactive" style="height:74px;">
+              <span>18%</span>
+            </div>
+          </div>
+        </div>
+        <p class="chart-note">오늘의집 스탠다드의 실제 시공 현장 393건</p>
+        <button class="more-btn">20평대 견적 순위 자세히 보기 <svg class="catalog-chevron" width="12" height="12" aria-hidden="true"><use href="./assets/ohouse-catalog-icons.svg#catalog-chevron-right"/></svg></button>
+      </div>
+
+      <!-- Section: Popular Construction Cases -->
+      <div class="section-divider"></div>
+      <div class="interior-module review-last">
+        <div class="section-head"><h2 class="section-title" id="interior-portfolio-title">강남구 주변 인기 시공사례</h2></div>
+        <div class="filter-chips" id="interior-portfolio-filters">
+          <button class="chip active">전체</button>
+          <button class="chip">모던</button>
+          <button class="chip">미니멀·심플</button>
+          <button class="chip">내추럴</button>
+        </div>
+        <div class="portfolio-scroll" id="interior-portfolio-scroll">
+          <article class="portfolio-card">
+            <div class="portfolio-thumb" style="background:#ddd;"></div>
+            <p class="portfolio-title">예설이 추구하는 철학이 담긴 디자인의 정석을 소개...</p>
+            <p class="portfolio-meta">21평 ・ 내추럴스타일</p>
+          </article>
+          <article class="portfolio-card">
+            <div class="portfolio-thumb" style="background:#ccc;"></div>
+            <p class="portfolio-title">화이트 베이스의 수납 가득 인테리어</p>
+            <p class="portfolio-meta">32평 ・ 모던스타일</p>
+          </article>
+          <article class="portfolio-card">
+            <div class="portfolio-thumb" style="background:#bbb;"></div>
+            <p class="portfolio-title">아이가 있는 집, 거실은 넓게! 각 방은 실용적으로~</p>
+            <p class="portfolio-meta">32평 ・ 북유럽스타일</p>
+          </article>
+        </div>
+        <button class="more-btn" style="margin-top:16px;">더보기 <svg class="catalog-chevron" width="12" height="12" aria-hidden="true"><use href="./assets/ohouse-catalog-icons.svg#catalog-chevron-right"/></svg></button>
+      </div>
+    </section>
+
+    <!-- ======================== TAB 2: 생활서비스 (Life Services) ======================== -->
+    <div class="panel panel-life" data-panel="life" hidden>
+      <!-- Grid Buttons -->
+      <section class="life-grid-section">
+        <div class="life-grid-row">
+          <article class="life-grid-card large">
+            <div>
+              <h3 class="life-grid-title">이사 견적</h3>
+              <p class="life-grid-desc">이사, 청소, 설치 전문가에게<br>믿고 맡기기</p>
+            </div>
+            <img src="./assets/components/interior-atf/atf-grid-moving.png" alt="" class="life-grid-asset" width="66" height="66">
+          </article>
+          <div class="life-grid-col">
+            <article class="life-grid-card small">
+              <h3 class="life-grid-title">인터넷 신청</h3>
+              <p class="life-grid-desc">최대 60만원 지원금<br>놓치지 않기</p>
+            </article>
+            <article class="life-grid-card small">
+              <h3 class="life-grid-title">가전 렌탈</h3>
+              <p class="life-grid-desc">정수기, 공기청정기<br>필요한 가전 구독하기</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Package Section -->
+      <section class="life-section">
+        <h2 class="life-section-title">필요한 서비스 한번에 신청하면<br>최대 10만원 쇼핑 지원금 받기</h2>
+        <article class="package-card">
+          <div class="package-content">
+            <p class="package-label">패키지1</p>
+            <h3 class="package-name">이사·입주청소·인터넷 신청하기</h3>
+            <button class="package-btn">함께 상담</button>
+          </div>
+          <img src="./assets/components/interior-atf/atf-grid-moving.png" alt="" class="package-asset" width="64" height="64">
+        </article>
+      </section>
+
+      <!-- USP Section -->
+      <section class="life-section">
+        <h2 class="life-section-title">왜 오늘의집일까요?</h2>
+        <div class="usp-scroll">
+          <article class="usp-card">
+            <span class="usp-badge" style="background:#D4EBF6;color:#0093E9;">쇼핑 지원금</span>
+            <h3 class="usp-title">함께 신청할수록<br>더 커지는 쇼핑 지원금</h3>
+            <div class="usp-asset" style="background:#e8f4f8;border-radius:8px;width:74px;height:74px;"></div>
+          </article>
+          <article class="usp-card">
+            <span class="usp-badge" style="background:#CDEEFF;color:#0093E9;">책임보장 이사 서비스</span>
+            <h3 class="usp-title">이사 당일<br>추가금 걱정 제로</h3>
+            <div class="usp-asset" style="background:#e8f4f8;border-radius:8px;width:74px;height:74px;"></div>
+          </article>
+          <article class="usp-card">
+            <span class="usp-badge" style="background:#CDEEFF;color:#00A1FF;">인터넷 신청</span>
+            <h3 class="usp-title">합리적인 요금으로<br>혜택은 최대로</h3>
+            <div class="usp-asset" style="background:#e8f4f8;border-radius:8px;width:74px;height:74px;"></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Portfolio Section -->
+      <section class="life-section">
+        <h2 class="life-section-title">서울·경기권 인기 이사 파트너 후기</h2>
+        <div class="company-avatar-scroll">
+          <div class="company-avatar-item">
+            <div class="avatar-ring"><div class="avatar-circle" style="background:#ddd;"></div></div>
+            <span class="company-badge-green">책임보장</span>
+            <p class="avatar-name">굿데이이사</p>
+            <p class="avatar-count">1,442건 상담</p>
+          </div>
+          <div class="company-avatar-item">
+            <div class="avatar-ring"><div class="avatar-circle" style="background:#ccc;"></div></div>
+            <p class="avatar-name">이사플랜</p>
+            <p class="avatar-count">1,442건 상담</p>
+          </div>
+          <div class="company-avatar-item">
+            <div class="avatar-ring"><div class="avatar-circle" style="background:#bbb;"></div></div>
+            <p class="avatar-name">굿데이이사</p>
+            <p class="avatar-count">1,442건 상담</p>
+          </div>
+          <div class="company-avatar-item">
+            <div class="avatar-ring"><div class="avatar-circle" style="background:#aaa;"></div></div>
+            <p class="avatar-name">굿데이이사</p>
+            <p class="avatar-count">1,442건 상담</p>
+          </div>
+          <div class="company-avatar-item">
+            <div class="avatar-ring"><div class="avatar-circle" style="background:#999;"></div></div>
+            <p class="avatar-name">굿데이이사</p>
+            <p class="avatar-count">1,442건 상담</p>
+          </div>
+        </div>
+        <div class="portfolio-image-scroll">
+          <div class="portfolio-image-card" style="background:#bbb;">
+            <div class="portfolio-image-overlay">
+              <p class="portfolio-image-author">woojin님의 후기</p>
+              <p class="portfolio-image-review">너무 친절하시고 깔끔하게 잘 마무리해주셨어요!!</p>
+            </div>
+          </div>
+          <div class="portfolio-image-card" style="background:#aaa;">
+            <div class="portfolio-image-overlay">
+              <p class="portfolio-image-author">woojin님의 후기</p>
+              <p class="portfolio-image-review">4월 5일 작성</p>
+            </div>
+          </div>
+          <div class="portfolio-image-card" style="background:#999;">
+            <div class="portfolio-image-overlay">
+              <p class="portfolio-image-author">woojin님의 후기</p>
+              <p class="portfolio-image-review">4월 5일 작성</p>
+            </div>
+          </div>
+          <div class="portfolio-image-card" style="background:#888;">
+            <div class="portfolio-image-overlay">
+              <p class="portfolio-image-author">woojin님의 후기</p>
+              <p class="portfolio-image-review">4월 3일 작성</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Customer Reviews Section -->
+      <section class="life-section">
+        <h2 class="life-section-title">실제 고객들의 생생한 이사 후기</h2>
+        <div class="review-card-scroll">
+          <article class="life-review-card">
+            <div class="review-stars">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#FFC300"><path d="M6 0L7.8 3.6L12 4.2L9 7.2L9.6 12L6 9.6L2.4 12L3 7.2L0 4.2L4.2 3.6L6 0Z"/></svg>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#FFC300"><path d="M6 0L7.8 3.6L12 4.2L9 7.2L9.6 12L6 9.6L2.4 12L3 7.2L0 4.2L4.2 3.6L6 0Z"/></svg>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#FFC300"><path d="M6 0L7.8 3.6L12 4.2L9 7.2L9.6 12L6 9.6L2.4 12L3 7.2L0 4.2L4.2 3.6L6 0Z"/></svg>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#FFC300"><path d="M6 0L7.8 3.6L12 4.2L9 7.2L9.6 12L6 9.6L2.4 12L3 7.2L0 4.2L4.2 3.6L6 0Z"/></svg>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#FFC300"><path d="M6 0L7.8 3.6L12 4.2L9 7.2L9.6 12L6 9.6L2.4 12L3 7.2L0 4.2L4.2 3.6L6 0Z"/></svg>
+            </div>
+            <div class="review-profile">
+              <span>34세</span><span class="dot">·</span><span>여성</span><span class="dot">·</span><span>광진구</span>
+              <span class="review-divider"></span>
+              <span class="review-company">uni.zip</span>
+            </div>
+            <h3 class="review-heading">내집처럼 이사 도와주셔서 너무 고맙고 안심되었어요.</h3>
+            <p class="review-body">방문상담 시 집 안 물건을 자세히 보고 견적을 내주셔서 믿고 맡길 수 있었습니다. 이사 당일 현장에서 포장가방이나 자재가 부족하거나 트럭이 작거나 인력이 부족하면 얼마나 당황스럽겠어요. 대충 견적내고 간 업체(오늘의집 밖에서 부른 곳)와는 너무 비교됩니다.</p>
+          </article>
+          <article class="life-review-card">
+            <div class="review-stars">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#FFC300"><path d="M6 0L7.8 3.6L12 4.2L9 7.2L9.6 12L6 9.6L2.4 12L3 7.2L0 4.2L4.2 3.6L6 0Z"/></svg>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#FFC300"><path d="M6 0L7.8 3.6L12 4.2L9 7.2L9.6 12L6 9.6L2.4 12L3 7.2L0 4.2L4.2 3.6L6 0Z"/></svg>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#FFC300"><path d="M6 0L7.8 3.6L12 4.2L9 7.2L9.6 12L6 9.6L2.4 12L3 7.2L0 4.2L4.2 3.6L6 0Z"/></svg>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#FFC300"><path d="M6 0L7.8 3.6L12 4.2L9 7.2L9.6 12L6 9.6L2.4 12L3 7.2L0 4.2L4.2 3.6L6 0Z"/></svg>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="#FFC300"><path d="M6 0L7.8 3.6L12 4.2L9 7.2L9.6 12L6 9.6L2.4 12L3 7.2L0 4.2L4.2 3.6L6 0Z"/></svg>
+            </div>
+            <div class="review-profile">
+              <span>34세</span><span class="dot">·</span><span>여성</span><span class="dot">·</span><span>광진구</span>
+              <span class="review-divider"></span>
+              <span class="review-company">uni.zip</span>
+            </div>
+            <h3 class="review-heading">내집처럼 이사 도와주셔서 너무 고맙고 안심되었어요.</h3>
+            <p class="review-body">방문상담 시 집 안 물건을 자세히 보고 견적을 내주셔서 믿고 맡길 수 있었습니다. 이사 당일 현장에서 포장가방이나 자재가 부족하거나 트럭이 작거나 인력이 부족하면 얼마나 당황스럽겠어요.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Cross-sell Product Section -->
+      <section class="life-section review-last">
+        <h2 class="life-section-title">인터넷 정수기 지금 함께 신청하면<br>쇼핑 지원금 40만원 지원</h2>
+        <div class="product-chips" id="productChips">
+          <button class="product-chip active" data-product-tab="purifier">정수기 렌탈</button>
+          <button class="product-chip" data-product-tab="internet">인터넷</button>
+        </div>
+        <div class="product-list" id="productList">
+          <article class="product-card">
+            <div class="product-thumb" style="background:#eee;"></div>
+            <div class="product-info">
+              <p class="product-price">월 23,450원</p>
+              <p class="product-name">SK매직 초소형 플러스 직수기</p>
+              <p class="product-rating">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="#FFC300"><path d="M6 0L7.8 3.6L12 4.2L9 7.2L9.6 12L6 9.6L2.4 12L3 7.2L0 4.2L4.2 3.6L6 0Z"/></svg>
+                4.9 · 2,451개 리뷰
+              </p>
+            </div>
+            <button class="product-select-btn">선택</button>
+          </article>
+          <article class="product-card">
+            <div class="product-thumb" style="background:#ddd;"></div>
+            <div class="product-info">
+              <p class="product-price">월 23,450원</p>
+              <p class="product-name">SK매직 초소형 플러스 직수기</p>
+              <p class="product-rating">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="#FFC300"><path d="M6 0L7.8 3.6L12 4.2L9 7.2L9.6 12L6 9.6L2.4 12L3 7.2L0 4.2L4.2 3.6L6 0Z"/></svg>
+                4.9 · 2,451개 리뷰
+              </p>
+            </div>
+            <button class="product-select-btn">선택</button>
+          </article>
+          <article class="product-card">
+            <div class="product-thumb" style="background:#ccc;"></div>
+            <div class="product-info">
+              <p class="product-price">월 23,450원</p>
+              <p class="product-name">SK매직 초소형 플러스 직수기</p>
+              <p class="product-rating">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="#FFC300"><path d="M6 0L7.8 3.6L12 4.2L9 7.2L9.6 12L6 9.6L2.4 12L3 7.2L0 4.2L4.2 3.6L6 0Z"/></svg>
+                4.9 · 2,451개 리뷰
+              </p>
+            </div>
+            <button class="product-select-btn">선택</button>
+          </article>
+          <article class="product-card">
+            <div class="product-thumb" style="background:#bbb;"></div>
+            <div class="product-info">
+              <p class="product-price">월 23,450원</p>
+              <p class="product-name">SK매직 초소형 플러스 직수기</p>
+              <p class="product-rating">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="#FFC300"><path d="M6 0L7.8 3.6L12 4.2L9 7.2L9.6 12L6 9.6L2.4 12L3 7.2L0 4.2L4.2 3.6L6 0Z"/></svg>
+                4.9 · 2,451개 리뷰
+              </p>
+            </div>
+            <button class="product-select-btn">선택</button>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <section class="empty-view" id="emptyView" hidden>
+      <div class="empty-view__icon" aria-hidden="true">🙂</div>
+      <h2 class="empty-view__title">준비 중인 화면이에요</h2>
+      <p class="empty-view__desc">선택한 GNB 탭의 콘텐츠는 다음 단계에서 연결될 예정입니다.</p>
+    </section>
+
+    <!-- Floating Action Bar -->
+    <div class="fab" id="fab">
+      <button class="fab-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6H20M4 12H20M4 18H12" stroke="white" stroke-width="1.5"/></svg>
+        <span>신청내역</span>
+      </button>
+      <div class="fab-divider"></div>
+      <button class="fab-btn">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z" stroke="white" stroke-width="1.5"/></svg>
+        <span>채팅</span>
+      </button>
+    </div>
+
+    <!-- Bottom Promo Banner -->
+    <div class="bottom-promo" id="bottomPromo" hidden>
+      <div class="promo-card">
+        <div class="promo-text">
+          <p class="promo-label">인터넷+렌탈 패키지 신청 시</p>
+          <p class="promo-amount">9만원 쇼핑 지원금</p>
+        </div>
+        <div class="promo-logos">
+          <div class="promo-logo-circle" style="background:#eee;"></div>
+          <span class="promo-plus">+</span>
+          <div class="promo-logo-circle" style="background:#ddd;"></div>
+        </div>
+        <button class="promo-cta" id="promoCta">바로 상담</button>
+      </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav" aria-label="하단 내비게이션">
+      <div class="nav-items">
+        <button class="nav-item" data-tab="home" data-inactive-src="./assets/components/bottom-nav/bottom-home-line.svg" data-active-src="./assets/components/bottom-nav/bottom-home-filled.svg"><img class="catalog-icon-img" src="./assets/components/bottom-nav/bottom-home-line.svg" alt="" width="24" height="24" /><span>홈</span></button>
+        <button class="nav-item" data-tab="tour" data-inactive-src="./assets/components/bottom-nav/bottom-community-line.svg" data-active-src="./assets/components/bottom-nav/bottom-community-filled.svg"><img class="catalog-icon-img" src="./assets/components/bottom-nav/bottom-community-line.svg" alt="" width="24" height="24" /><span>집구경</span></button>
+        <button class="nav-item" data-tab="store" data-inactive-src="./assets/components/bottom-nav/bottom-shopping-line.svg" data-active-src="./assets/components/bottom-nav/bottom-shopping-filled.svg"><img class="catalog-icon-img" src="./assets/components/bottom-nav/bottom-shopping-line.svg" alt="" width="24" height="24" /><span>쇼핑</span></button>
+        <button class="nav-item active" data-tab="experts" data-inactive-src="./assets/components/bottom-nav/bottom-lifeline.svg" data-active-src="./assets/components/bottom-nav/bottom-life-filled.svg"><img class="catalog-icon-img" src="./assets/components/bottom-nav/bottom-life-filled.svg" alt="" width="24" height="24" /><span>인테리어/생활</span></button>
+        <button class="nav-item" data-tab="my" data-inactive-src="./assets/components/bottom-nav/bottom-mypage-line.svg" data-active-src="./assets/components/bottom-nav/bottom-mypage-filled.svg"><img class="catalog-icon-img" src="./assets/components/bottom-nav/bottom-mypage-line.svg" alt="" width="24" height="24" /><span>마이페이지</span></button>
+      </div>
+      <div class="home-indicator"><span></span></div>
+    </nav>
+
+    <!-- Offering Banner Flow -->
+    <section class="consult-flow" id="consultFlow" hidden>
+      <article class="consult-screen consult-screen-form" id="consultFlowForm">
+        <header class="consult-top-nav">
+          <button type="button" class="consult-back-btn" data-flow-close aria-label="뒤로가기">←</button>
+          <strong>한번에 상담 신청</strong>
+          <span class="consult-top-placeholder"></span>
+        </header>
+        <div class="consult-title-wrap">
+          <h2>상담 연락을 받으실<br />번호를 알려주세요.</h2>
+        </div>
+        <div class="consult-input-wrap">
+          <input type="text" class="consult-input consult-input-name" placeholder="이름" />
+          <div class="consult-phone-row">
+            <select class="consult-input consult-select">
+              <option>010</option>
+              <option>011</option>
+              <option>016</option>
+            </select>
+            <input type="tel" class="consult-input consult-phone" placeholder="'-' 제외하고 입력" />
+            <button type="button" class="consult-auth-btn" disabled>인증</button>
+          </div>
+          <button type="button" class="consult-chip-btn">연락처 불러오기</button>
+        </div>
+        <div class="consult-bottom-action">
+          <button type="button" class="consult-submit-btn" id="consultSubmitBtn">신청 완료</button>
+        </div>
+      </article>
+
+      <article class="consult-screen consult-screen-loading" id="consultFlowLoading" hidden>
+        <header class="consult-top-nav">
+          <button type="button" class="consult-back-btn" data-flow-close aria-label="뒤로가기">←</button>
+          <strong>한번에 상담 신청</strong>
+          <span class="consult-top-placeholder"></span>
+        </header>
+        <div class="consult-title-wrap consult-title-wrap-loading">
+          <h2><span class="done">신청 완료!</span><br />곧 상담 연락을 드릴게요</h2>
+          <p>늦어도 N일 이내에는 연락을 드릴 예정이에요.</p>
+          <p class="consult-loading-note"><span class="spinner"></span>3초 뒤 신청 내역으로 이동</p>
+        </div>
+      </article>
+
+      <article class="consult-screen consult-screen-history" id="consultFlowHistory" hidden>
+        <header class="consult-top-nav">
+          <button type="button" class="consult-back-btn" data-flow-close aria-label="뒤로가기">←</button>
+          <strong>시공/생활 상담내역</strong>
+          <span class="consult-top-placeholder"></span>
+        </header>
+        <div class="consult-history-tabs">
+          <button class="active">신청내역</button>
+          <button>받은문서</button>
+          <button>채팅</button>
+        </div>
+        <div class="consult-history-chips">
+          <button class="active">전체</button>
+          <button>전체시공</button>
+          <button>부분시공</button>
+          <button>이사</button>
+          <button>입주청소</button>
+        </div>
+        <div class="consult-history-filter">
+          <button>6개월 이내 ▾</button>
+        </div>
+        <div class="consult-history-item">
+          <div class="consult-history-icon">◔</div>
+          <div class="consult-history-content">
+            <p class="title">통합 상담 신청</p>
+            <p class="desc">상담사 매칭 기다리는중...</p>
+          </div>
+          <span class="time">방금</span>
+        </div>
+      </article>
+    </section>
+  </main>
+  <script src="./assets/hub.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+:root {
+  --ods-color-foreground: #2f3438;
+  --ods-color-white: #ffffff;
+  --ods-color-gray-50: #f5f5f5;
+  --ods-color-gray-150: #e0e0e0;
+  --ods-color-gray-400: #8c8c8c;
+  --ods-color-gray-900: #141414;
+  --ods-color-genuine-blue-350: #00a1ff;
+  --ods-shadow-depth-10: 0 2px 5px 0 rgb(63 71 77 / 0.05);
+  --ods-font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --ods-letter-spacing-default: -0.3px;
+}
