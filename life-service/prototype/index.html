@@ -9,31 +9,58 @@
 </head>
 <body>
   <main class="ab-shell" id="abShell">
-    <aside class="control-panel" aria-label="프리뷰 외 컨트롤 패널">
-      <div class="control-panel__row control-panel__row--top">
-        <div class="viewport-toggle" role="group" aria-label="해상도 토글">
-          <button type="button" class="viewport-toggle__btn is-active" data-preset="mobile">Mobile</button>
-          <button type="button" class="viewport-toggle__btn" data-preset="tablet">Tablet</button>
-          <button type="button" class="viewport-toggle__btn" data-preset="desktop">Desktop</button>
-        </div>
-        <div class="dimension-controls">
-          <label class="dimension-input">
-            <span>W</span>
-            <input id="frameWidthInput" type="text" value="360" inputmode="numeric" />
-            <span>px</span>
-          </label>
-          <label class="dimension-input">
-            <span>H</span>
-            <input id="frameHeightInput" type="text" value="812" inputmode="numeric" />
-            <span>px</span>
-          </label>
-          <input id="frameWidthRange" class="width-range" type="range" min="360" max="1920" value="360" />
-        </div>
-        <select id="pageMenuSelect" class="page-dropdown__select" aria-label="페이지 메뉴 드롭다운"></select>
-      </div>
-    </aside>
-
     <section class="preview-pane" aria-label="프리뷰 영역">
+      <div class="floating-control" id="floatingControl">
+        <button
+          type="button"
+          class="floating-control__trigger"
+          id="floatingControlTrigger"
+          aria-haspopup="dialog"
+          aria-expanded="false"
+          aria-controls="floatingControlBar"
+        >
+          <span class="sr-only">컨트롤 열기</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4.95 5.6H19.05M4.95 11.5H19.05M4.95 17.4H14.7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="floating-control__bar" id="floatingControlBar" hidden>
+          <button type="button" class="view-chip" id="viewModeChip">MobileView</button>
+          <button
+            type="button"
+            class="page-trigger"
+            id="pageDropdownTrigger"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+            aria-controls="pageDropdownMenu"
+          >
+            <span id="currentPageLabel">O2OHome</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+              <path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button type="button" class="floating-close" id="floatingControlClose" aria-label="컨트롤 닫기">
+            <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6.5 6.5L17.5 17.5M17.5 6.5L6.5 17.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="page-dropdown-menu" id="pageDropdownMenu" role="listbox" hidden>
+          <div id="pageDropdownList"></div>
+        </div>
+        <div class="floating-control__legacy-inputs" aria-hidden="true" hidden>
+          <div class="viewport-toggle" role="group" aria-label="해상도 토글">
+            <button type="button" class="viewport-toggle__btn is-active" data-preset="mobile">Mobile</button>
+            <button type="button" class="viewport-toggle__btn" data-preset="tablet">Tablet</button>
+            <button type="button" class="viewport-toggle__btn" data-preset="desktop">Desktop</button>
+          </div>
+          <label class="dimension-input"><span>W</span><input id="frameWidthInput" type="text" value="360" inputmode="numeric" /><span>px</span></label>
+          <label class="dimension-input"><span>H</span><input id="frameHeightInput" type="text" value="812" inputmode="numeric" /><span>px</span></label>
+          <input id="frameWidthRange" class="width-range" type="range" min="360" max="1920" value="360" />
+          <select id="pageMenuSelect" class="page-dropdown__select" aria-label="페이지 메뉴 드롭다운"></select>
+        </div>
+      </div>
+
       <div class="preview-stage" id="previewStage">
         <div class="frame-shell">
           <button type="button" class="frame-resizer frame-resizer--left" aria-label="프레임 너비 줄이기/늘리기"></button>

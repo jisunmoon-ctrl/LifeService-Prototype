@@ -17,6 +17,15 @@
   var leftResizer = document.querySelector('.frame-resizer--left');
   var rightResizer = document.querySelector('.frame-resizer--right');
   var bottomResizer = document.querySelector('.frame-resizer--bottom');
+  var floatingControl = document.getElementById('floatingControl');
+  var floatingControlTrigger = document.getElementById('floatingControlTrigger');
+  var floatingControlBar = document.getElementById('floatingControlBar');
+  var floatingControlClose = document.getElementById('floatingControlClose');
+  var viewModeChip = document.getElementById('viewModeChip');
+  var pageDropdownTrigger = document.getElementById('pageDropdownTrigger');
+  var pageDropdownMenu = document.getElementById('pageDropdownMenu');
+  var pageDropdownList = document.getElementById('pageDropdownList');
+  var currentPageLabel = document.getElementById('currentPageLabel');
 
   if (!iframe || !frame || !pageMenuSelect || !breakpointButtons.length || !widthInput || !heightInput || !widthRange) return;
 
@@ -51,6 +60,21 @@
   var frameWidth = 360;
   var frameHeight = 812;
 
+  function isMobileView() {
+    return frameWidth <= 768;
+  }
+
+  function syncViewChipState() {
+    if (!viewModeChip) return;
+    if (isMobileView()) {
+      viewModeChip.textContent = 'MobileView';
+      viewModeChip.classList.remove('is-outlined');
+    } else {
+      viewModeChip.textContent = 'DesktopView';
+      viewModeChip.classList.add('is-outlined');
+    }
+  }
+
   function clamp(value, min, max) {
     return Math.max(min, Math.min(max, Math.round(value)));
   }
@@ -80,6 +104,15 @@
         );
       })
       .join('');
+
+    if (pageDropdownList) {
+      pageDropdownList.innerHTML = Object.keys(pageMap)
+        .map(function (id) {
+          var page = pageMap[id];
+          return '<button type="button" class="page-option" data-page-id="' + page.id + '">' + page.id + '</button>';
+        })
+        .join('');
+    }
   }
 
   function selectPage(pageId) {
@@ -88,6 +121,12 @@
 
     iframe.src = page.src;
     pageMenuSelect.value = page.id;
+    if (currentPageLabel) currentPageLabel.textContent = page.label === '신청전' || page.label === '신청후' ? 'O2OHome' : page.label;
+    if (pageDropdownList) {
+      Array.prototype.forEach.call(pageDropdownList.querySelectorAll('.page-option'), function (option) {
+        option.classList.toggle('is-active', option.getAttribute('data-page-id') === page.id);
+      });
+    }
   }
 
   function syncBreakpointButtons() {
@@ -95,6 +134,7 @@
     breakpointButtons.forEach(function (btn) {
       btn.classList.toggle('is-active', btn.getAttribute('data-preset') === label);
     });
+    syncViewChipState();
   }
 
   function applyFrameSize(nextWidth, nextHeight) {
@@ -161,11 +201,36 @@
     });
   }
 
+  function setFloatingBarOpen(isOpen) {
+    if (!floatingControlBar || !floatingControlTrigger) return;
+    floatingControlBar.hidden = !isOpen;
+    floatingControlTrigger.hidden = isOpen;
+    floatingControlTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    if (!isOpen) setPageDropdownOpen(false);
+  }
+
+  function setPageDropdownOpen(isOpen) {
+    if (!pageDropdownMenu || !pageDropdownTrigger) return;
+    pageDropdownMenu.hidden = !isOpen;
+    pageDropdownTrigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  }
+
   renderDropdown();
 
   pageMenuSelect.addEventListener('change', function () {
     selectPage(pageMenuSelect.value);
   });
+
+  if (pageDropdownList) {
+    pageDropdownList.addEventListener('click', function (event) {
+      var option = event.target.closest('.page-option');
+      if (!option) return;
+      var pageId = option.getAttribute('data-page-id');
+      if (!pageId) return;
+      selectPage(pageId);
+      setPageDropdownOpen(false);
+    });
+  }
 
   breakpointButtons.forEach(function (btn) {
     btn.addEventListener('click', function () {
@@ -174,6 +239,13 @@
       applyFrameSize(presetMap[preset], frameHeight);
     });
   });
+
+  if (viewModeChip) {
+    viewModeChip.addEventListener('click', function () {
+      var nextPreset = isMobileView() ? 'desktop' : 'mobile';
+      applyFrameSize(presetMap[nextPreset], frameHeight);
+    });
+  }
 
   widthInput.addEventListener('change', function () {
     applyFrameSize(parseInt(widthInput.value, 10) || frameWidth, frameHeight);
@@ -197,6 +269,39 @@
   bindHorizontalResizer(rightResizer, 'right');
   bindBottomResizer(bottomResizer);
 
+  if (floatingControlTrigger && floatingControlBar && floatingControl) {
+    floatingControlTrigger.addEventListener('click', function () {
+      setFloatingBarOpen(true);
+    });
+
+    if (floatingControlClose) {
+      floatingControlClose.addEventListener('click', function () {
+        setFloatingBarOpen(false);
+      });
+    }
+
+    if (pageDropdownTrigger) {
+      pageDropdownTrigger.addEventListener('click', function () {
+        setPageDropdownOpen(pageDropdownMenu ? pageDropdownMenu.hidden : false);
+      });
+    }
+
+    document.addEventListener('click', function (event) {
+      var clickInside = floatingControl.contains(event.target);
+      if (!clickInside) {
+        setPageDropdownOpen(false);
+        if (floatingControlBar && !floatingControlBar.hidden) setFloatingBarOpen(false);
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        setPageDropdownOpen(false);
+        setFloatingBarOpen(false);
+      }
+    });
+  }
+
   if (stage) {
     stage.scrollTop = 0;
     stage.scrollLeft = 0;
@@ -204,4 +309,5 @@
 
   applyFrameSize(frameWidth, frameHeight);
   selectPage('O2O_HOME_PRE');
+  setFloatingBarOpen(false);
 })();
