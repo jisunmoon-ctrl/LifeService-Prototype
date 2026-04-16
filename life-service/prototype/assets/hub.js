@@ -139,22 +139,34 @@ const chipButtons = document.querySelectorAll('.chip');
 const companyCarousel = document.querySelector('#interior-company-carousel');
 let consultFlowTimerId = null;
 
+function setNavIcon(item, iconValue) {
+  if (!iconValue) return;
+  const iconEl = item.querySelector('.catalog-icon-img');
+  if (!iconEl) return;
+
+  if (iconEl.tagName === 'IMG') {
+    iconEl.setAttribute('src', iconValue);
+    return;
+  }
+
+  const useEl = iconEl.tagName === 'USE' ? iconEl : iconEl.querySelector('use');
+  if (useEl) {
+    useEl.setAttribute('href', iconValue);
+  }
+}
+
 // ===== Bottom Navigation =====
 bottomTabs.forEach(tab => {
   tab.addEventListener('click', () => {
     bottomTabs.forEach(item => {
       item.classList.remove('active');
-      const iconEl = item.querySelector('.catalog-icon-img');
-      const inactiveSrc = item.getAttribute('data-inactive-src');
-      if (iconEl && inactiveSrc) iconEl.setAttribute('src', inactiveSrc);
+      const inactiveIcon = item.getAttribute('data-inactive-icon') || item.getAttribute('data-inactive-src');
+      setNavIcon(item, inactiveIcon);
     });
 
     tab.classList.add('active');
-    const activeIcon = tab.querySelector('.catalog-icon-img');
-    if (activeIcon) {
-      const activeSrc = tab.getAttribute('data-active-src');
-      if (activeSrc) activeIcon.setAttribute('src', activeSrc);
-    }
+    const activeIcon = tab.getAttribute('data-active-icon') || tab.getAttribute('data-active-src');
+    setNavIcon(tab, activeIcon);
 
     const selectedTab = tab.getAttribute('data-tab');
     const isExpertsTab = selectedTab === 'experts';
