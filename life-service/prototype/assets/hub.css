@@ -38,11 +38,9 @@ body {
   margin: 0 auto;
   min-height: 100vh;
   position: relative;
-  display: flex;
-  flex-direction: column;
   background: var(--ods-color-white);
   color: var(--ods-color-foreground);
-  padding-bottom: 0;
+  padding-bottom: 89px;
   padding-top: var(--hub-header-offset);
   overflow-x: hidden;
 }
@@ -91,6 +89,7 @@ body {
   background: transparent;
   display: grid; place-items: center;
   cursor: pointer; flex: 0 0 24px;
+  overflow: hidden;
 }
 .gnb-icon-btn img,
 .gnb-icon-btn svg.catalog-icon { width: 24px; height: 24px; display: block; }
@@ -100,6 +99,7 @@ body {
   width: 24px;
   height: 24px;
   flex: 0 0 24px;
+  object-fit: contain;
 }
 .gnb-icon-btn svg.catalog-icon { color: var(--ods-color-foreground); }
 .search-field {
@@ -1372,7 +1372,7 @@ body {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 0 14px;
+  padding: 0 16px;
   height: 46px;
   background: rgba(47,52,56,0.98);
   border-radius: 49px;
@@ -1380,6 +1380,7 @@ body {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s;
+  white-space: nowrap;
 }
 .fab.visible { opacity: 1; pointer-events: auto; }
 .fab-btn {
@@ -1392,8 +1393,14 @@ body {
   font: 400 14px/18px var(--ods-font-family);
   cursor: pointer;
   padding: 0;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .fab-btn svg { flex: 0 0 24px; }
+.fab-btn span {
+  display: inline-block;
+  white-space: nowrap;
+}
 .fab-divider {
   width: 1px;
   height: 20px;
@@ -1463,16 +1470,15 @@ body {
 
 /* ===== BOTTOM NAVIGATION ===== */
 .bottom-nav {
-  position: sticky;
-  left: 0;
-  transform: none;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: 0;
   width: 100%;
-  max-width: 100%;
+  max-width: 375px;
   z-index: 15;
   border-top: 0.5px solid var(--ods-color-gray-150);
   background: var(--ods-color-white);
-  margin-top: auto;
 }
 .nav-items {
   height: 54px;
@@ -1487,7 +1493,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 2px;
-  padding-top: 10px;
+  padding-top: 8px;
   color: var(--ods-color-gray-900);
   font: 400 10px/14px var(--ods-font-family);
   cursor: pointer;

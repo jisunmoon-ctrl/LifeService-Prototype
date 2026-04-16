@@ -144,16 +144,16 @@ bottomTabs.forEach(tab => {
   tab.addEventListener('click', () => {
     bottomTabs.forEach(item => {
       item.classList.remove('active');
-      const iconUse = item.querySelector('.catalog-icon use');
-      const inactiveIcon = item.getAttribute('data-inactive-icon');
-      if (iconUse && inactiveIcon) iconUse.setAttribute('href', './assets/components/asset_gnb/asset-gnb-icons.svg#' + inactiveIcon);
+      const iconEl = item.querySelector('.catalog-icon-img');
+      const inactiveSrc = item.getAttribute('data-inactive-src');
+      if (iconEl && inactiveSrc) iconEl.setAttribute('src', inactiveSrc);
     });
 
     tab.classList.add('active');
-    const activeIconUse = tab.querySelector('.catalog-icon use');
-    if (activeIconUse) {
-      const activeIcon = tab.getAttribute('data-active-icon');
-      if (activeIcon) activeIconUse.setAttribute('href', './assets/components/asset_gnb/asset-gnb-icons.svg#' + activeIcon);
+    const activeIcon = tab.querySelector('.catalog-icon-img');
+    if (activeIcon) {
+      const activeSrc = tab.getAttribute('data-active-src');
+      if (activeSrc) activeIcon.setAttribute('src', activeSrc);
     }
 
     const selectedTab = tab.getAttribute('data-tab');

@@ -7,6 +7,7 @@
   var iframe = document.getElementById('ab-preview');
   var frame = document.getElementById('abFrame');
   var stage = document.getElementById('previewStage');
+  var previewPane = document.querySelector('.preview-pane');
   var pageMenuSelect = document.getElementById('pageMenuSelect');
   var breakpointButtons = document.querySelectorAll('.viewport-toggle__btn');
   var widthInput = document.getElementById('frameWidthInput');
@@ -53,11 +54,11 @@
 
   var pageMap = {};
   var presetMap = {
-    mobile: 360,
+    mobile: 375,
     tablet: 768,
     desktop: 1280,
   };
-  var frameWidth = 360;
+  var frameWidth = 375;
   var frameHeight = 812;
 
   function isMobileView() {
@@ -151,6 +152,53 @@
     if (frameSizeText) frameSizeText.textContent = 'Frame: ' + frameWidth + ' × ' + frameHeight;
     if (breakpointText) breakpointText.textContent = 'Breakpoint: ' + getBreakpointLabel(frameWidth);
     syncBreakpointButtons();
+  }
+
+  function fitMobileFrameToStageHeight() {
+    if (!stage) return;
+
+    // Compute visible height from the full preview pane, excluding fixed UI
+    // (status strip + bottom resizer + stage paddings), to prevent bottom clipping.
+    var containerHeight = previewPane ? previewPane.clientHeight : stage.clientHeight;
+    if (!containerHeight) return;
+
+    var statusHeight = frameSizeText && frameSizeText.parentElement ? frameSizeText.parentElement.offsetHeight : 0;
+    var bottomResizerHeight = bottomResizer ? bottomResizer.offsetHeight : 0;
+    var bottomResizerStyles = bottomResizer ? window.getComputedStyle(bottomResizer) : null;
+    var bottomResizerMarginTop = bottomResizerStyles ? parseFloat(bottomResizerStyles.marginTop) || 0 : 0;
+    var bottomResizerMarginBottom = bottomResizerStyles ? parseFloat(bottomResizerStyles.marginBottom) || 0 : 0;
+
+    var stageStyle = window.getComputedStyle(stage);
+    var paddingTop = parseFloat(stageStyle.paddingTop) || 0;
+    var paddingBottom = parseFloat(stageStyle.paddingBottom) || 0;
+    var usableHeight = containerHeight
+      - statusHeight
+      - bottomResizerHeight
+      - bottomResizerMarginTop
+      - bottomResizerMarginBottom
+      - paddingTop
+      - paddingBottom;
+    if (usableHeight <= 0) return;
+
+    var stageWidth = stage.clientWidth;
+    var paddingLeft = parseFloat(stageStyle.paddingLeft) || 0;
+    var paddingRight = parseFloat(stageStyle.paddingRight) || 0;
+    // Account for both horizontal resizers (14px each)
+    var horizontalControllerWidth = 28;
+    var usableWidth = stageWidth - paddingLeft - paddingRight - horizontalControllerWidth;
+    if (usableWidth <= 0) return;
+
+    // Fit 375:812 frame into available viewport area without clipping.
+    var ratio = 375 / 812;
+    var targetHeight = Math.min(812, usableHeight);
+    var targetWidth = Math.round(targetHeight * ratio);
+
+    if (targetWidth > usableWidth) {
+      targetWidth = Math.floor(usableWidth);
+      targetHeight = Math.round(targetWidth / ratio);
+    }
+
+    applyFrameSize(targetWidth, targetHeight);
   }
 
   function bindHorizontalResizer(resizer, side) {
@@ -307,7 +355,11 @@
     stage.scrollLeft = 0;
   }
 
-  applyFrameSize(frameWidth, frameHeight);
+  window.addEventListener('resize', function () {
+    if (isMobileView()) fitMobileFrameToStageHeight();
+  });
+
+  fitMobileFrameToStageHeight();
   selectPage('O2O_HOME_PRE');
   setFloatingBarOpen(false);
 })();
