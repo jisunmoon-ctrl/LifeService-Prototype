@@ -1,6 +1,19 @@
 .cursor/mcp.json
 .mcp.json
-.cursor/mcp.json
-.mcp.json
-.cursor/mcp.json
-.mcp.json
+
+# macOS
+.DS_Store
+
+# Editor / tooling
+.vscode/
+.idea/
+.claude/
+
+# Python bytecode (from tools/)
+__pycache__/
+*.pyc
+*.pyo
+
+# Logs / temp
+*.log
+.cache/

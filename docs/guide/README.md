@@ -29,6 +29,10 @@
 
 - `docs/guide/d-prototype-folder-structure.md`
 
+## e. 프리뷰 레이아웃 & 패널 공통 스펙
+
+- `e-preview-layout-panel-spec.md` (저장소 루트, Sun-Moon 레포 위계와 동일)
+
 ---
 
 ## 권장 읽기 순서
@@ -38,6 +42,7 @@
 3. `docs/guide/b-2-global-components-structure.md`
 4. `docs/guide/c-preview-control-panel-ui.md`
 5. `docs/guide/d-prototype-folder-structure.md`
+6. `e-preview-layout-panel-spec.md` (루트)
 
 ---
 
