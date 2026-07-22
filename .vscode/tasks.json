@@ -2,16 +2,6 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "preview: index (5179)",
-      "type": "shell",
-      "command": "echo '→ http://localhost:5179/' && python3 -m http.server 5179 --bind 127.0.0.1",
-      "options": { "cwd": "${workspaceFolder}" },
-      "isBackground": true,
-      "problemMatcher": [],
-      "presentation": { "panel": "dedicated", "group": "preview" },
-      "detail": "진입점 index.html (허브 + 3개 프로토타입 링크 · 서버 상태) → http://localhost:5179"
-    },
-    {
       "label": "preview: 통합 허브 (5180)",
       "type": "shell",
       "command": "echo '→ http://localhost:5180/  (Simple Browser 로 열림)' && python3 -m http.server 5180 --bind 127.0.0.1",
@@ -51,10 +41,9 @@
       "presentation": { "panel": "dedicated", "group": "preview" }
     },
     {
-      "label": "preview: 전체 실행 (index + 허브 + 3개 프로토타입)",
+      "label": "preview: 전체 실행 (허브 + 3개 프로토타입)",
       "dependsOn": [
         "preview: 통합 허브 (5180)",
-        "preview: index (5179)",
         "preview: form (5181)",
         "preview: movingHome (5182)",
         "preview: movingpartner (5183)"
