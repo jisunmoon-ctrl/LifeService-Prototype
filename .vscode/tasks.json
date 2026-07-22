@@ -1,0 +1,70 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "preview: index (5179)",
+      "type": "shell",
+      "command": "echo '→ http://localhost:5179/' && python3 -m http.server 5179 --bind 127.0.0.1",
+      "options": { "cwd": "${workspaceFolder}" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "panel": "dedicated", "group": "preview" },
+      "detail": "진입점 index.html (허브 + 3개 프로토타입 링크 · 서버 상태) → http://localhost:5179"
+    },
+    {
+      "label": "preview: 통합 허브 (5180)",
+      "type": "shell",
+      "command": "echo '→ http://localhost:5180/  (Simple Browser 로 열림)' && python3 -m http.server 5180 --bind 127.0.0.1",
+      "options": { "cwd": "${workspaceFolder}/preview" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "panel": "dedicated", "group": "preview" },
+      "detail": "3개 프로토타입 플로우를 하나의 우측 메뉴 패널에서 전환하는 통합 프리뷰 → http://localhost:5180"
+    },
+    {
+      // --strictPort: 포트가 밀리면 preview/index.html 의 PROJECTS origin(하드코딩)이 깨지므로
+      // 조용히 다른 포트로 옮겨가는 대신 즉시 실패하게 한다.
+      "label": "preview: form (5181)",
+      "type": "shell",
+      "command": "npx vite --port 5181 --strictPort",
+      "options": { "cwd": "${workspaceFolder}/form" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "panel": "dedicated", "group": "preview" }
+    },
+    {
+      "label": "preview: movingHome (5182)",
+      "type": "shell",
+      "command": "npx vite --port 5182 --strictPort",
+      "options": { "cwd": "${workspaceFolder}/movingHome" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "panel": "dedicated", "group": "preview" }
+    },
+    {
+      "label": "preview: movingpartner (5183)",
+      "type": "shell",
+      "command": "npx vite --port 5183 --strictPort",
+      "options": { "cwd": "${workspaceFolder}/movingpartner" },
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": { "panel": "dedicated", "group": "preview" }
+    },
+    {
+      "label": "preview: 전체 실행 (index + 허브 + 3개 프로토타입)",
+      "dependsOn": [
+        "preview: 통합 허브 (5180)",
+        "preview: index (5179)",
+        "preview: form (5181)",
+        "preview: movingHome (5182)",
+        "preview: movingpartner (5183)"
+      ],
+      "dependsOrder": "parallel",
+      "problemMatcher": [],
+      "group": { "kind": "build", "isDefault": true },
+      // 폴더를 열면 프리뷰 서버가 자동으로 뜬다 (settings.json 의 task.allowAutomaticTasks: "on" 필요)
+      "runOptions": { "runOn": "folderOpen" },
+      "detail": "허브 http://localhost:5180 에서 3개 프로토타입의 모든 플로우를 우측 메뉴 패널로 전환"
+    }
+  ]
+}

@@ -11,8 +11,14 @@ npm-debug.log*
 
 # editor / OS
 .DS_Store
-.vscode/
 *.swp
+
+# .vscode 는 공유 설정(프리뷰 태스크·Simple Browser 라우팅)만 커밋한다
+.vscode/*
+!.vscode/tasks.json
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
 
 # local env
 .env
