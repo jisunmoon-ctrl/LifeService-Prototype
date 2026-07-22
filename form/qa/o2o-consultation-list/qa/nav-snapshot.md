@@ -1,0 +1,114 @@
+- generic [ref=f11e3]:
+  - generic [ref=f11e5]:
+    - generic [ref=f11e6]:
+      - button "Mobile" [ref=f11e7] [cursor=pointer]
+      - button "Tablet" [ref=f11e11] [cursor=pointer]
+      - button "Desktop" [ref=f11e15] [cursor=pointer]
+    - generic [ref=f11e20]:
+      - generic [ref=f11e21]: W
+      - textbox "W" [ref=f11e22]: "360"
+      - generic [ref=f11e23]: px
+    - generic [ref=f11e24]:
+      - generic [ref=f11e25]: H
+      - textbox "H" [ref=f11e26]: "640"
+      - generic [ref=f11e27]: px
+    - slider "가로 해상도" [ref=f11e28]: "360"
+    - generic [ref=f11e29]: Mobile
+  - generic [ref=f11e34]:
+    - generic [ref=f11e35]:
+      - button "좌측 핸들" [ref=f11e36]
+      - generic [ref=f11e46]:
+        - generic [ref=f11e47]:
+          - button [ref=f11e48]
+          - heading "시공 견적" [level=1] [ref=f11e51]
+        - generic [ref=f11e55]:
+          - heading "원활한 상담을 위해 이름과 연락처가 필요해요" [level=2] [ref=f11e58]: 원활한 상담을 위해이름과 연락처가 필요해요
+          - generic [ref=f11e59]:
+            - generic [ref=f11e60]: 연락처는 시공 업체에게 안심번호로 전달해요.
+            - generic [ref=f11e64]:
+              - textbox "이름 입력" [ref=f11e67]: 홍길동
+              - generic [ref=f11e68]:
+                - combobox [ref=f11e72]:
+                  - option "010" [selected]
+                  - option "011"
+                  - option "016"
+                - textbox "입력해주세요" [ref=f11e76]: "1012345678"
+              - button "인증번호 받기" [ref=f11e77] [cursor=pointer]
+            - generic [ref=f11e80]:
+              - generic [ref=f11e81]: 통화희망시간
+              - combobox [ref=f11e84]:
+                - option "언제든 괜찮아요" [selected]
+                - option "아침 (9시 이전)"
+                - option "오전 (9시~12시)"
+                - option "오후 (12시~18시)"
+                - option "저녁 (18시 이후)"
+                - option "직접 입력"
+            - generic [ref=f11e85]:
+              - generic [ref=f11e86]: 요청사항 (선택)
+              - generic [ref=f11e87]:
+                - textbox "특이사항, 세부시공내역, 원하는 스타일 등" [ref=f11e89]
+                - paragraph [ref=f11e90]: 0 / 200
+            - generic [ref=f11e91]:
+              - paragraph [ref=f11e92]: 상담신청 완료 후 아래 순서로 진행돼요
+              - generic [ref=f11e93]:
+                - generic [ref=f11e94]:
+                  - generic [ref=f11e95]: "1"
+                  - paragraph [ref=f11e96]: 통화 가능 시간에 업체와 짧은 유선 상담 진행
+                - generic [ref=f11e97]:
+                  - generic [ref=f11e98]: "2"
+                  - generic [ref=f11e99]:
+                    - paragraph [ref=f11e100]: 정확한 견적을 위해 대면 상담 진행
+                    - paragraph [ref=f11e101]: 대면 상담을 진행하지 않고 가견적을 받을 시 견적에 차이가 날 수 있어요.대면 상담 진행 시, 원하는 조건에 따른 정확한 견적을 받아보실 수 있어요.
+            - generic [ref=f11e102]:
+              - paragraph [ref=f11e103]: 안내 및 이용동의
+              - paragraph [ref=f11e104]: 오늘의집은 고객님의 계약서와 최종 견적서(변경 포함)를 바탕으로 시공 중 발생할 수 있는 분쟁을 중재하고 지원해요.
+              - list [ref=f11e105]:
+                - listitem [ref=f11e106]:
+                  - generic [ref=f11e107]: ·
+                  - generic [ref=f11e108]: 책임보장업체가 아닌 경우에는 오늘의집 중재 및 책임보장 서비스를 이용하실 수 없어요.
+                - listitem [ref=f11e109]:
+                  - generic [ref=f11e110]: ·
+                  - generic [ref=f11e111]: 책임보장을 이용하시려면 오늘의집 전자계약서로 계약을 체결하고 최종 견적서(변경 포함)를 제출해 주세요.
+              - paragraph [ref=f11e112]: 시공 문제로 고객님께 재산상 피해가 발생한 경우, 오늘의집이 최대 3,000만 원까지 보상해 드려요.
+              - paragraph [ref=f11e113]:
+                - generic [ref=f11e114]: ·
+                - generic [ref=f11e115]: ‘오늘의집인테리어’(직시공) & ‘오늘의집시공’ 서비스의 경우에는 계약금액 전액을 기준으로 보상해 드려요.
+              - generic [ref=f11e117]:
+                - checkbox "위 내용을 충분히 확인했으며, 책임보장 조건을 이해했어요." [ref=f11e118] [cursor=pointer]
+                - generic [ref=f11e119] [cursor=pointer]: 위 내용을 충분히 확인했으며, 책임보장 조건을 이해했어요.
+        - generic [ref=f11e123]:
+          - button "이전" [ref=f11e124] [cursor=pointer]
+          - button "신청완료" [disabled]
+      - button "우측 핸들" [ref=f11e127]
+    - button "하단 핸들" [ref=f11e135]
+  - generic [ref=f11e143]:
+    - button "컨트롤 패널 접기" [ref=f11e144] [cursor=pointer]
+    - generic [ref=f11e147]:
+      - generic [ref=f11e148]:
+        - generic [ref=f11e149]:
+          - generic [ref=f11e150]:
+            - generic [ref=f11e151]: 1. Flow Ideation
+            - generic [ref=f11e152]: new
+          - generic [ref=f11e154]:
+            - button "시공 신청 후 크로스셀링 Flow" [ref=f11e155] [cursor=pointer]
+            - generic [ref=f11e159]:
+              - button "① 시공 연락처 입력 (시작)" [ref=f11e160] [cursor=pointer]
+              - button "② 표준계약서 확인" [ref=f11e164] [cursor=pointer]
+              - button "③ 이사+청소 크로스셀 제안" [ref=f11e166] [cursor=pointer]
+              - button "④ 출발지" [ref=f11e168] [cursor=pointer]
+              - button "⑤ 이사 타입" [ref=f11e170] [cursor=pointer]
+              - button "⑥ 신청 정보 확인" [ref=f11e172] [cursor=pointer]
+              - button "⑦ 매칭 리스트 (상담내역)" [ref=f11e174] [cursor=pointer]
+        - generic [ref=f11e176]:
+          - generic [ref=f11e177]: 2. Form
+          - generic [ref=f11e179]:
+            - button "이사" [ref=f11e181] [cursor=pointer]
+            - button "이사청소" [ref=f11e186] [cursor=pointer]
+            - button "시공 신청" [ref=f11e191] [cursor=pointer]
+      - generic [ref=f11e196]:
+        - button "Restart" [ref=f11e197] [cursor=pointer]
+        - button "템플릿 이용 가이드" [ref=f11e202] [cursor=pointer]:
+          - generic [ref=f11e206]: 도움말
+  - generic [ref=f11e208]:
+    - text: "Frame:"
+    - generic [ref=f11e209]: 360 × 640

@@ -1,0 +1,507 @@
+{
+  "schema": "moving_partner_portfolio_image_counts",
+  "version": "1.0",
+  "partner_count": 100,
+  "partners": [
+    {
+      "partner_id": 1,
+      "partner_name": "하나로종합물류",
+      "image_count": 12
+    },
+    {
+      "partner_id": 2,
+      "partner_name": "해피포장이사",
+      "image_count": 12
+    },
+    {
+      "partner_id": 3,
+      "partner_name": "삼성무빙",
+      "image_count": 12
+    },
+    {
+      "partner_id": 4,
+      "partner_name": "퍼스트포장이사",
+      "image_count": 12
+    },
+    {
+      "partner_id": 5,
+      "partner_name": "코끼리무빙",
+      "image_count": 12
+    },
+    {
+      "partner_id": 6,
+      "partner_name": "올인원운수",
+      "image_count": 12
+    },
+    {
+      "partner_id": 7,
+      "partner_name": "올인원이삿짐센터",
+      "image_count": 12
+    },
+    {
+      "partner_id": 8,
+      "partner_name": "케이종합물류",
+      "image_count": 12
+    },
+    {
+      "partner_id": 9,
+      "partner_name": "정직한이사",
+      "image_count": 12
+    },
+    {
+      "partner_id": 10,
+      "partner_name": "해피무빙",
+      "image_count": 12
+    },
+    {
+      "partner_id": 11,
+      "partner_name": "탑화물",
+      "image_count": 6
+    },
+    {
+      "partner_id": 12,
+      "partner_name": "빠른무빙",
+      "image_count": 12
+    },
+    {
+      "partner_id": 13,
+      "partner_name": "미소포장이사",
+      "image_count": 12
+    },
+    {
+      "partner_id": 14,
+      "partner_name": "그린운수",
+      "image_count": 12
+    },
+    {
+      "partner_id": 15,
+      "partner_name": "드림무빙",
+      "image_count": 12
+    },
+    {
+      "partner_id": 16,
+      "partner_name": "탑로지스",
+      "image_count": 12
+    },
+    {
+      "partner_id": 17,
+      "partner_name": "두손이사",
+      "image_count": 12
+    },
+    {
+      "partner_id": 18,
+      "partner_name": "믿음포장이사",
+      "image_count": 12
+    },
+    {
+      "partner_id": 19,
+      "partner_name": "스마트익스프레스",
+      "image_count": 12
+    },
+    {
+      "partner_id": 20,
+      "partner_name": "베스트로지스",
+      "image_count": 12
+    },
+    {
+      "partner_id": 21,
+      "partner_name": "대한이삿짐센터",
+      "image_count": 12
+    },
+    {
+      "partner_id": 22,
+      "partner_name": "탑포장이사",
+      "image_count": 12
+    },
+    {
+      "partner_id": 23,
+      "partner_name": "하나로물류",
+      "image_count": 12
+    },
+    {
+      "partner_id": 24,
+      "partner_name": "마이운수",
+      "image_count": 12
+    },
+    {
+      "partner_id": 25,
+      "partner_name": "행복화물",
+      "image_count": 12
+    },
+    {
+      "partner_id": 26,
+      "partner_name": "대한운수",
+      "image_count": 12
+    },
+    {
+      "partner_id": 27,
+      "partner_name": "온누리익스프레스",
+      "image_count": 12
+    },
+    {
+      "partner_id": 28,
+      "partner_name": "으랏차차화물",
+      "image_count": 12
+    },
+    {
+      "partner_id": 29,
+      "partner_name": "두손무빙",
+      "image_count": 12
+    },
+    {
+      "partner_id": 30,
+      "partner_name": "굿로지스",
+      "image_count": 4
+    },
+    {
+      "partner_id": 31,
+      "partner_name": "퍼스트이사",
+      "image_count": 12
+    },
+    {
+      "partner_id": 32,
+      "partner_name": "청춘익스프레스",
+      "image_count": 12
+    },
+    {
+      "partner_id": 33,
+      "partner_name": "에이스종합물류",
+      "image_count": 12
+    },
+    {
+      "partner_id": 34,
+      "partner_name": "베스트운수",
+      "image_count": 1
+    },
+    {
+      "partner_id": 35,
+      "partner_name": "원스톱익스프레스",
+      "image_count": 12
+    },
+    {
+      "partner_id": 36,
+      "partner_name": "러브무빙",
+      "image_count": 10
+    },
+    {
+      "partner_id": 37,
+      "partner_name": "열정포장이사",
+      "image_count": 12
+    },
+    {
+      "partner_id": 38,
+      "partner_name": "블루무빙",
+      "image_count": 9
+    },
+    {
+      "partner_id": 39,
+      "partner_name": "에이스이삿짐센터",
+      "image_count": 9
+    },
+    {
+      "partner_id": 40,
+      "partner_name": "코끼리물류",
+      "image_count": 12
+    },
+    {
+      "partner_id": 41,
+      "partner_name": "코끼리포장이사",
+      "image_count": 12
+    },
+    {
+      "partner_id": 42,
+      "partner_name": "으뜸종합물류",
+      "image_count": 12
+    },
+    {
+      "partner_id": 43,
+      "partner_name": "마이화물",
+      "image_count": 12
+    },
+    {
+      "partner_id": 44,
+      "partner_name": "한일로지스",
+      "image_count": 12
+    },
+    {
+      "partner_id": 45,
+      "partner_name": "빠른이사",
+      "image_count": 12
+    },
+    {
+      "partner_id": 46,
+      "partner_name": "해피이삿짐센터",
+      "image_count": 12
+    },
+    {
+      "partner_id": 47,
+      "partner_name": "믿음이사",
+      "image_count": 12
+    },
+    {
+      "partner_id": 48,
+      "partner_name": "스마트무빙",
+      "image_count": 12
+    },
+    {
+      "partner_id": 49,
+      "partner_name": "정직한화물",
+      "image_count": 12
+    },
+    {
+      "partner_id": 50,
+      "partner_name": "참좋은화물",
+      "image_count": 12
+    },
+    {
+      "partner_id": 51,
+      "partner_name": "믿음무빙",
+      "image_count": 12
+    },
+    {
+      "partner_id": 52,
+      "partner_name": "삼성익스프레스",
+      "image_count": 12
+    },
+    {
+      "partner_id": 53,
+      "partner_name": "그린물류",
+      "image_count": 12
+    },
+    {
+      "partner_id": 54,
+      "partner_name": "그린이사",
+      "image_count": 10
+    },
+    {
+      "partner_id": 55,
+      "partner_name": "프리미엄이삿짐센터",
+      "image_count": 8
+    },
+    {
+      "partner_id": 56,
+      "partner_name": "에이스이사",
+      "image_count": 12
+    },
+    {
+      "partner_id": 57,
+      "partner_name": "대한물류",
+      "image_count": 12
+    },
+    {
+      "partner_id": 58,
+      "partner_name": "으랏차차무빙",
+      "image_count": 12
+    },
+    {
+      "partner_id": 59,
+      "partner_name": "베스트화물",
+      "image_count": 12
+    },
+    {
+      "partner_id": 60,
+      "partner_name": "대한화물",
+      "image_count": 12
+    },
+    {
+      "partner_id": 61,
+      "partner_name": "새봄익스프레스",
+      "image_count": 12
+    },
+    {
+      "partner_id": 62,
+      "partner_name": "골드종합물류",
+      "image_count": 12
+    },
+    {
+      "partner_id": 63,
+      "partner_name": "굿화물",
+      "image_count": 12
+    },
+    {
+      "partner_id": 64,
+      "partner_name": "대박로지스",
+      "image_count": 12
+    },
+    {
+      "partner_id": 65,
+      "partner_name": "케이로지스",
+      "image_count": 12
+    },
+    {
+      "partner_id": 66,
+      "partner_name": "믿음로지스",
+      "image_count": 4
+    },
+    {
+      "partner_id": 67,
+      "partner_name": "열정익스프레스",
+      "image_count": 12
+    },
+    {
+      "partner_id": 68,
+      "partner_name": "바른물류",
+      "image_count": 12
+    },
+    {
+      "partner_id": 69,
+      "partner_name": "해피운수",
+      "image_count": 12
+    },
+    {
+      "partner_id": 70,
+      "partner_name": "드림포장이사",
+      "image_count": 12
+    },
+    {
+      "partner_id": 71,
+      "partner_name": "한일화물",
+      "image_count": 12
+    },
+    {
+      "partner_id": 72,
+      "partner_name": "퍼스트종합물류",
+      "image_count": 12
+    },
+    {
+      "partner_id": 73,
+      "partner_name": "골드이사",
+      "image_count": 12
+    },
+    {
+      "partner_id": 74,
+      "partner_name": "올인원이사",
+      "image_count": 12
+    },
+    {
+      "partner_id": 75,
+      "partner_name": "미소화물",
+      "image_count": 12
+    },
+    {
+      "partner_id": 76,
+      "partner_name": "새봄이삿짐센터",
+      "image_count": 12
+    },
+    {
+      "partner_id": 77,
+      "partner_name": "블루익스프레스",
+      "image_count": 10
+    },
+    {
+      "partner_id": 78,
+      "partner_name": "미소이사",
+      "image_count": 12
+    },
+    {
+      "partner_id": 79,
+      "partner_name": "온누리이삿짐센터",
+      "image_count": 12
+    },
+    {
+      "partner_id": 80,
+      "partner_name": "안심로지스",
+      "image_count": 12
+    },
+    {
+      "partner_id": 81,
+      "partner_name": "드림화물",
+      "image_count": 12
+    },
+    {
+      "partner_id": 82,
+      "partner_name": "그린로지스",
+      "image_count": 12
+    },
+    {
+      "partner_id": 83,
+      "partner_name": "스마트이삿짐센터",
+      "image_count": 12
+    },
+    {
+      "partner_id": 84,
+      "partner_name": "청춘무빙",
+      "image_count": 12
+    },
+    {
+      "partner_id": 85,
+      "partner_name": "빠른이삿짐센터",
+      "image_count": 1
+    },
+    {
+      "partner_id": 86,
+      "partner_name": "바른무빙",
+      "image_count": 12
+    },
+    {
+      "partner_id": 87,
+      "partner_name": "한일물류",
+      "image_count": 12
+    },
+    {
+      "partner_id": 88,
+      "partner_name": "탑무빙",
+      "image_count": 12
+    },
+    {
+      "partner_id": 89,
+      "partner_name": "두손로지스",
+      "image_count": 12
+    },
+    {
+      "partner_id": 90,
+      "partner_name": "하나로이사",
+      "image_count": 12
+    },
+    {
+      "partner_id": 91,
+      "partner_name": "프리미엄물류",
+      "image_count": 3
+    },
+    {
+      "partner_id": 92,
+      "partner_name": "안심운수",
+      "image_count": 8
+    },
+    {
+      "partner_id": 93,
+      "partner_name": "열정이사",
+      "image_count": 12
+    },
+    {
+      "partner_id": 94,
+      "partner_name": "행복이사",
+      "image_count": 12
+    },
+    {
+      "partner_id": 95,
+      "partner_name": "그린포장이사",
+      "image_count": 12
+    },
+    {
+      "partner_id": 96,
+      "partner_name": "한일운수",
+      "image_count": 12
+    },
+    {
+      "partner_id": 97,
+      "partner_name": "하나로운수",
+      "image_count": 12
+    },
+    {
+      "partner_id": 98,
+      "partner_name": "안심화물",
+      "image_count": 12
+    },
+    {
+      "partner_id": 99,
+      "partner_name": "스마트운수",
+      "image_count": 12
+    },
+    {
+      "partner_id": 100,
+      "partner_name": "안심이사",
+      "image_count": 12
+    }
+  ]
+}

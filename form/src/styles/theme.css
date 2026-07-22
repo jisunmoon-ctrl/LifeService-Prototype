@@ -1,0 +1,688 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* ==========================================================================
+     Design System Tokens - 오늘의집 이사 신청
+     Updated: 2026/03/12 based on Figma Design System
+     ========================================================================== */
+
+  /* --------------------------------------------------------------------------
+     Colors - Light Mode (Default)
+     -------------------------------------------------------------------------- */
+
+  /* BG - Background */
+  --bg-dim: rgba(0, 0, 0, 0.6);
+  --bg-overlay: rgba(0, 0, 0, 0.5);
+  --bg-neutral: #FFFFFF;
+  --bg-inverse: #141414;
+  --bg-weak: #F5F5F5;
+  --bg-background-dim: #EAEBEF;
+
+  /* Border */
+  --border-neutral: #EBEBEB;
+  --border-inverse: #FFFFFF;
+  --border-strong: #141414;
+  --border-thumbnail: rgba(0, 0, 0, 0.05);
+  --border-neutral-strong: #E0E0E0;
+  --border-neutral-inverse: #EAEDEF;
+
+  /* FG - Foreground (Text/Icon) */
+  --fg-neutral: #141414;
+  --fg-inverse: #FFFFFF;
+  --fg-weak: #BCBCBC;
+  --fg-foreground: #141414;
+  --fg-foreground-inverse: #FFFFFF;
+  --fg-foreground-weak: #9E9E9E;
+  
+  /* Brand - 오늘의집 브랜드 컬러 */
+  --bg-brand: #00A1FF;
+  --bg-brand-weak: #F0F8FC;
+  --border-brand: #00A1FF;
+  --fg-brand: #00A1FF;
+
+  /* Accent */
+  --accent-purple: #6F3DDE;
+  --accent-red: #F03D4A;
+  --accent-yellow: #FFC300;
+  --accent-accent-purple: #7B61FF;
+
+  /* Semantic - Attention (Yellow) */
+  --bg-attention: #FDF6E6;
+  --bg-attention-weak: #FCF4DD;
+  --border-attention: #F5DF4D;
+  --fg-attention: #623B00;
+
+  /* Semantic - Critical (Red) */
+  --bg-critical: #FF7777;
+  --bg-critical-weak: #FFF0F0;
+  --border-critical: #FF7777;
+  --fg-critical: #F05656;
+
+  /* Semantic - Emphasis (Blue/Brand Alias) */
+  --bg-emphasis: #00A1FF;
+  --bg-emphasis-weak: #F0F8FC;
+  --border-emphasis: #00A1FF;
+  --fg-emphasis: #00A1FF;
+
+  /* Semantic - Emphasis Analyst */
+  --bg-emphasis-analyst: rgba(120, 119, 245, 0.08);
+  --bg-emphasis-analyst-weak: #F0F8FC;
+
+  /* Disabled */
+  --bg-disabled: #EDEDED;
+  --fg-disabled: #C2C8CC;
+
+  /* Semantic - Border */
+  --border-border-critical: #FFC9C9;
+  --border-border-emphasis: #00A1FF;
+
+  /* Semantic - FG */
+  --fg-foreground-attention: #8D6602;
+  --fg-foreground-critical: #EF2C3E;
+
+  /* --------------------------------------------------------------------------
+     Spacing System (8px Base)
+     -------------------------------------------------------------------------- */
+  --spacing-0: 0px;
+  --spacing-1: 2px;
+  --spacing-2: 4px;
+  --spacing-3: 6px;
+  --spacing-4: 8px;
+  --spacing-5: 10px;
+  --spacing-6: 12px;
+  --spacing-7: 14px;
+  --spacing-8: 16px;
+  --spacing-9: 18px;
+  --spacing-10: 20px;
+  --spacing-12: 24px;
+  --spacing-14: 28px;
+  --spacing-16: 32px;
+  --spacing-18: 36px;
+  --spacing-20: 40px;
+  --spacing-24: 48px;
+  --spacing-28: 56px;
+  --spacing-32: 64px;
+  --spacing-36: 72px;
+  --spacing-40: 80px;
+
+  /* --------------------------------------------------------------------------
+     Border Radius
+     -------------------------------------------------------------------------- */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-3xl: 24px;
+  --radius-full: 9999px;
+
+  /* --------------------------------------------------------------------------
+     Shadows
+     -------------------------------------------------------------------------- */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* --------------------------------------------------------------------------
+     Shadcn/Tailwind System Mappings
+     -------------------------------------------------------------------------- */
+  --background: var(--bg-neutral);
+  --foreground: var(--fg-neutral);
+
+  --card: var(--bg-neutral);
+  --card-foreground: var(--fg-neutral);
+
+  --popover: var(--bg-neutral);
+  --popover-foreground: var(--fg-neutral);
+
+  --primary: var(--bg-brand);
+  --primary-foreground: #FFFFFF;
+
+  --secondary: var(--bg-weak);
+  --secondary-foreground: var(--fg-neutral);
+
+  --muted: var(--bg-weak);
+  --muted-foreground: var(--fg-weak);
+
+  --accent: var(--bg-brand-weak);
+  --accent-foreground: var(--bg-brand);
+
+  --destructive: var(--bg-critical);
+  --destructive-foreground: #FFFFFF;
+
+  --border: var(--border-neutral);
+  --input: var(--border-neutral);
+  --ring: var(--bg-brand);
+
+  --radius: 0.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Colors - Dark Mode
+   -------------------------------------------------------------------------- */
+.dark {
+  /* BG */
+  --bg-dim: rgba(0, 0, 0, 0.8);
+  --bg-overlay: rgba(255, 255, 255, 0.5);
+  --bg-neutral: #0A0A0A;
+  --bg-inverse: #F5F5F5;
+  --bg-weak: #141414;
+  --bg-background-dim: #1A1A1A;
+
+  /* Border */
+  --border-neutral: #3B3B3B;
+  --border-inverse: #0A0A0A;
+  --border-strong: #F5F5F5;
+  --border-thumbnail: rgba(0, 0, 0, 0.5);
+  --border-neutral-strong: #2A2A2A;
+  --border-neutral-inverse: #2A2A2A;
+
+  /* FG */
+  --fg-neutral: #F5F5F5;
+  --fg-inverse: #0A0A0A;
+  --fg-weak: #ACACAC;
+  --fg-foreground: #F5F5F5;
+  --fg-foreground-inverse: #0A0A0A;
+  --fg-foreground-weak: #757575;
+
+  /* Brand */
+  --bg-brand: #00A1FF;
+  --bg-brand-weak: #01243F;
+  --border-brand: #00A1FF;
+  --fg-brand: #00A1FF;
+
+  /* Accent */
+  --accent-purple: #6F3DDE;
+  --accent-red: #EF3D3A;
+  --accent-yellow: #FFC300;
+  --accent-accent-purple: #7B61FF;
+
+  /* Semantic - Attention */
+  --bg-attention: #322B00;
+  --bg-attention-weak: #443200;
+  --border-attention: #F2D000;
+  --fg-attention: #F5DF4D;
+
+  /* Semantic - Critical */
+  --bg-critical: #EF2C3E;
+  --bg-critical-weak: #59030E;
+  --border-critical: #F03D4A;
+  --fg-critical: #EF2C3E;
+
+  /* Semantic - Emphasis */
+  --bg-emphasis: #00A1FF;
+  --bg-emphasis-weak: #01243F;
+  --border-emphasis: #00A1FF;
+  --fg-emphasis: #00A1FF;
+
+  /* Semantic - Emphasis Analyst */
+  --bg-emphasis-analyst: rgba(120, 119, 245, 0.16);
+  --bg-emphasis-analyst-weak: #01243F;
+
+  /* Disabled */
+  --bg-disabled: #222222;
+  --fg-disabled: #757575;
+
+  /* Semantic - Border */
+  --border-border-critical: #8B1F1F;
+  --border-border-emphasis: #00A1FF;
+
+  /* Semantic - FG */
+  --fg-foreground-attention: #F5DF4D;
+  --fg-foreground-critical: #EF2C3E;
+}
+
+@theme inline {
+  /* --------------------------------------------------------------------------
+     Tailwind Extension
+     -------------------------------------------------------------------------- */
+  
+  /* Color Palette Extension */
+  --color-bg-dim: var(--bg-dim);
+  --color-bg-overlay: var(--bg-overlay);
+  --color-bg-neutral: var(--bg-neutral);
+  --color-bg-inverse: var(--bg-inverse);
+  --color-bg-weak: var(--bg-weak);
+  --color-bg-background-dim: var(--bg-background-dim);
+
+  --color-border-neutral: var(--border-neutral);
+  --color-border-inverse: var(--border-inverse);
+  --color-border-strong: var(--border-strong);
+  --color-border-thumbnail: var(--border-thumbnail);
+  --color-border-neutral-strong: var(--border-neutral-strong);
+  --color-border-neutral-inverse: var(--border-neutral-inverse);
+
+  --color-fg-neutral: var(--fg-neutral);
+  --color-fg-inverse: var(--fg-inverse);
+  --color-fg-weak: var(--fg-weak);
+  --color-fg-foreground: var(--fg-foreground);
+  --color-fg-foreground-inverse: var(--fg-foreground-inverse);
+  --color-fg-foreground-weak: var(--fg-foreground-weak);
+
+  --color-brand: var(--bg-brand);
+  --color-brand-weak: var(--bg-brand-weak);
+  
+  --color-attention: var(--bg-attention);
+  --color-attention-weak: var(--bg-attention-weak);
+  --color-critical: var(--bg-critical);
+  --color-critical-weak: var(--bg-critical-weak);
+  
+  --color-disabled: var(--bg-disabled);
+  --color-fg-disabled: var(--fg-disabled);
+
+  /* Accent Colors */
+  --color-accent-purple: var(--accent-purple);
+  --color-accent-red: var(--accent-red);
+  --color-accent-yellow: var(--accent-yellow);
+
+  /* Standard Shadcn Mappings */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Border Radius */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-3xl: 24px;
+  --radius-full: 9999px;
+
+  /* Spacing */
+  --spacing-0: 0px;
+  --spacing-1: 2px;
+  --spacing-2: 4px;
+  --spacing-3: 6px;
+  --spacing-4: 8px;
+  --spacing-5: 10px;
+  --spacing-6: 12px;
+  --spacing-7: 14px;
+  --spacing-8: 16px;
+  --spacing-9: 18px;
+  --spacing-10: 20px;
+  --spacing-12: 24px;
+  --spacing-14: 28px;
+  --spacing-16: 32px;
+  --spacing-18: 36px;
+  --spacing-20: 40px;
+  --spacing-24: 48px;
+  --spacing-28: 56px;
+  --spacing-32: 64px;
+  --spacing-36: 72px;
+  --spacing-40: 80px;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Pretendard Variable', sans-serif;
+  }
+}
+
+@layer utilities {
+  /* --------------------------------------------------------------------------
+     Typography System (Pretendard Variable)
+     Based on Figma Design System
+     -------------------------------------------------------------------------- */
+
+  /* Headings */
+  .text-heading-38 {
+    font-size: 38px;
+    line-height: 50px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  .text-heading-32 {
+    font-size: 32px;
+    line-height: 42px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  .text-heading-28 {
+    font-size: 28px;
+    line-height: 38px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  .text-heading-24 {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  .text-heading-20 {
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  .text-heading-18 {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  .text-heading-16 {
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  .text-heading-14 {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+
+  /* Subheadings */
+  .text-subheading-20 {
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+  }
+  .text-subheading-18 {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+  }
+  .text-subheading-16 {
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+  }
+  .text-subheading-14 {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+  }
+
+  /* Body Regular */
+  .text-body-18 {
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 400;
+    letter-spacing: -0.3px;
+  }
+  .text-body-16 {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    letter-spacing: -0.3px;
+  }
+  .text-body-15 {
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 400;
+    letter-spacing: -0.3px;
+  }
+  .text-body-14 {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    letter-spacing: -0.3px;
+  }
+  .text-body-13 {
+    font-size: 13px;
+    line-height: 18px;
+    font-weight: 400;
+    letter-spacing: -0.3px;
+  }
+  .text-body-12 {
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+    letter-spacing: -0.3px;
+  }
+
+  /* Body Medium */
+  .text-body-medium-18 {
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 500;
+    letter-spacing: -0.3px;
+  }
+  .text-body-medium-16 {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+    letter-spacing: -0.3px;
+  }
+  .text-body-medium-14 {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    letter-spacing: -0.3px;
+  }
+
+  /* Detail */
+  .text-detail-12 {
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+    letter-spacing: -0.3px;
+  }
+  .text-detail-11 {
+    font-size: 11px;
+    line-height: 14px;
+    font-weight: 400;
+    letter-spacing: -0.3px;
+  }
+  .text-detail-10 {
+    font-size: 10px;
+    line-height: 12px;
+    font-weight: 400;
+    letter-spacing: -0.3px;
+  }
+
+  /* Weights */
+  .font-regular { font-weight: 400; }
+  .font-medium { font-weight: 500; }
+  .font-semibold { font-weight: 600; }
+  .font-bold { font-weight: 700; }
+
+  /* --------------------------------------------------------------------------
+     Layout Utilities
+     -------------------------------------------------------------------------- */
+
+  /* Mobile Frame Container (375px) */
+  .mobile-container {
+    width: 375px;
+    min-height: 812px;
+    background: var(--bg-neutral);
+    position: relative;
+  }
+
+  /* Content Padding (Standard: 16px horizontal) */
+  .content-padding {
+    padding-left: var(--spacing-8);
+    padding-right: var(--spacing-8);
+  }
+
+  /* Section Spacing */
+  .section-spacing-sm {
+    padding-top: var(--spacing-8);
+    padding-bottom: var(--spacing-8);
+  }
+  .section-spacing-md {
+    padding-top: var(--spacing-10);
+    padding-bottom: var(--spacing-10);
+  }
+  .section-spacing-lg {
+    padding-top: var(--spacing-12);
+    padding-bottom: var(--spacing-12);
+  }
+
+  /* Card/Box Styles */
+  .card-base {
+    background: var(--bg-neutral);
+    border: 1px solid var(--border-neutral);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-8);
+  }
+
+  .card-interactive {
+    background: var(--bg-neutral);
+    border: 1px solid var(--border-neutral);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-8);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .card-interactive:hover {
+    border-color: var(--border-brand);
+  }
+
+  .card-interactive.selected {
+    border: 2px solid var(--border-brand);
+    border-color: var(--border-brand);
+  }
+
+  /* Button Styles */
+  .btn-primary {
+    background: var(--bg-brand);
+    color: var(--fg-inverse);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-6) var(--spacing-8);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: -0.3px;
+    transition: opacity 0.2s ease;
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+
+  .btn-primary:disabled {
+    background: var(--bg-disabled);
+    color: var(--fg-disabled);
+    cursor: not-allowed;
+  }
+
+  .btn-secondary {
+    background: var(--bg-neutral);
+    color: var(--fg-neutral);
+    border: 1px solid var(--border-neutral);
+    border-radius: var(--radius-sm);
+    padding: var(--spacing-6) var(--spacing-8);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: -0.3px;
+    transition: all 0.2s ease;
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    background: var(--bg-weak);
+  }
+
+  .btn-secondary.selected {
+    border: 2px solid var(--border-brand);
+    color: var(--fg-brand);
+  }
+
+  /* Dividers */
+  .divider-horizontal {
+    height: 1px;
+    background: var(--border-neutral);
+    width: 100%;
+  }
+
+  .divider-vertical {
+    width: 1px;
+    background: var(--border-neutral);
+    height: 100%;
+  }
+
+  /* Status Bar & Navigation Heights */
+  .status-bar-height {
+    height: 44px;
+  }
+
+  .nav-bar-height {
+    height: 44px;
+  }
+
+  .bottom-bar-height {
+    height: 62px; /* 50px button + 6px padding + 6px padding */
+  }
+
+  .home-indicator-height {
+    height: 34px;
+  }
+
+  /* Progress Bar */
+  .progress-bar-height {
+    height: 6px;
+  }
+
+  /* Scrollbar Styling */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--border-neutral);
+    border-radius: var(--radius-full);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--border-neutral-strong);
+  }
+
+  /* Focus States */
+  .focus-ring {
+    outline: 2px solid var(--border-brand);
+    outline-offset: 2px;
+  }
+
+  /* Animations */
+  .transition-default {
+    transition: all 0.2s ease;
+  }
+
+  .transition-fast {
+    transition: all 0.15s ease;
+  }
+
+  .transition-slow {
+    transition: all 0.3s ease;
+  }
+}

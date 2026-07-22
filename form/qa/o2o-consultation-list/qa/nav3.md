@@ -1,0 +1,113 @@
+- generic [ref=f32e3]:
+  - generic [ref=f32e5]:
+    - generic [ref=f32e6]:
+      - button "Mobile" [ref=f32e7] [cursor=pointer]
+      - button "Tablet" [ref=f32e11] [cursor=pointer]
+      - button "Desktop" [active] [ref=f32e15] [cursor=pointer]
+    - generic [ref=f32e20]:
+      - generic [ref=f32e21]: W
+      - textbox "W" [ref=f32e22]: "1280"
+      - generic [ref=f32e23]: px
+    - generic [ref=f32e24]:
+      - generic [ref=f32e25]: H
+      - textbox "H" [ref=f32e26]: "640"
+      - generic [ref=f32e27]: px
+    - slider "가로 해상도" [ref=f32e28]: "1280"
+    - generic [ref=f32e29]: Desktop
+  - generic [ref=f32e34]:
+    - generic [ref=f32e35]:
+      - button "좌측 핸들" [ref=f32e36]
+      - generic [ref=f32e210]:
+        - banner [ref=f32e259]:
+          - generic [ref=f32e260]:
+            - generic [ref=f32e261]:
+              - img "오늘의집" [ref=f32e262]
+              - navigation "메인 메뉴" [ref=f32e266]:
+                - button "커뮤니티" [ref=f32e267]
+                - button "쇼핑" [ref=f32e268]
+                - button "인테리어/생활" [ref=f32e269]
+            - generic [ref=f32e270]:
+              - generic [ref=f32e271]:
+                - generic [ref=f32e272]: 시공업체 검색
+                - button "장바구니" [ref=f32e277]
+                - generic [ref=f32e282]:
+                  - button "로그인" [ref=f32e284]
+                  - button "회원가입" [ref=f32e287]
+                  - button "고객센터" [ref=f32e290]
+              - button "글쓰기" [ref=f32e291]
+          - generic [ref=f32e295]:
+            - navigation "서브 메뉴" [ref=f32e296]:
+              - generic [ref=f32e297]: 홈
+              - generic [ref=f32e300]: 주거공간시공
+              - generic [ref=f32e302]: 상업공간시공
+              - generic [ref=f32e304]: 시공자재랭킹
+              - generic [ref=f32e306]: 제품설치
+              - generic [ref=f32e308]: 이사
+              - generic [ref=f32e310]: 집보기체크리스트
+              - generic [ref=f32e312]: 아파트시공사례
+            - generic [ref=f32e314]:
+              - generic [ref=f32e315]: "1"
+              - generic [ref=f32e319]: 포트메리온
+              - button "트렌드 더보기" [ref=f32e320]
+        - generic [ref=f32e324]:
+          - heading "시공/생활 상담내역" [level=1] [ref=f32e325]
+          - generic [ref=f32e326]:
+            - navigation [ref=f32e327]:
+              - button "신청내역" [ref=f32e328]
+              - button "받은문서" [ref=f32e329]
+              - button "채팅" [ref=f32e330]
+            - generic [ref=f32e331]:
+              - generic [ref=f32e332]:
+                - button "전체" [ref=f32e333]
+                - button "전체시공" [ref=f32e334]
+                - button "이사" [ref=f32e335]
+                - button "이사청소" [ref=f32e336]
+              - generic [ref=f32e337]: 6개월 이내
+              - generic [ref=f32e344]:
+                - generic [ref=f32e346]:
+                  - generic [ref=f32e347]:
+                    - paragraph [ref=f32e348]: 이사
+                    - paragraph [ref=f32e349]: 업체 매칭 중
+                  - paragraph [ref=f32e350]: 딱 맞는 업체를 찾고 있어요
+                - generic [ref=f32e351]: 방금
+              - generic [ref=f32e354]:
+                - generic [ref=f32e356]:
+                  - generic [ref=f32e357]:
+                    - paragraph [ref=f32e358]: 이사청소
+                    - paragraph [ref=f32e359]: 업체 매칭 중
+                  - paragraph [ref=f32e360]: 딱 맞는 업체를 찾고 있어요
+                - generic [ref=f32e361]: 방금
+        - paragraph [ref=f32e365]: 신청 완료! 매칭이 완료되면 알림으로 알려드릴게요.
+      - button "우측 핸들" [ref=f32e127]
+    - button "하단 핸들" [ref=f32e135]
+  - generic [ref=f32e143]:
+    - button "컨트롤 패널 접기" [ref=f32e144] [cursor=pointer]
+    - generic [ref=f32e147]:
+      - generic [ref=f32e148]:
+        - generic [ref=f32e149]:
+          - generic [ref=f32e150]:
+            - generic [ref=f32e151]: 1. Flow Ideation
+            - generic [ref=f32e152]: new
+          - generic [ref=f32e154]:
+            - button "시공 신청 후 크로스셀링 Flow" [ref=f32e155] [cursor=pointer]
+            - generic [ref=f32e159]:
+              - button "① 시공 연락처 입력 (시작)" [ref=f32e160] [cursor=pointer]
+              - button "② 표준계약서 확인" [ref=f32e164] [cursor=pointer]
+              - button "③ 이사+청소 크로스셀 제안" [ref=f32e166] [cursor=pointer]
+              - button "④ 출발지" [ref=f32e168] [cursor=pointer]
+              - button "⑤ 이사 타입" [ref=f32e170] [cursor=pointer]
+              - button "⑥ 신청 정보 확인" [ref=f32e172] [cursor=pointer]
+              - button "⑦ 매칭 리스트 (상담내역)" [ref=f32e174] [cursor=pointer]
+        - generic [ref=f32e176]:
+          - generic [ref=f32e177]: 2. Form
+          - generic [ref=f32e179]:
+            - button "이사" [ref=f32e181] [cursor=pointer]
+            - button "이사청소" [ref=f32e186] [cursor=pointer]
+            - button "시공 신청" [ref=f32e191] [cursor=pointer]
+      - generic [ref=f32e196]:
+        - button "Restart" [ref=f32e197] [cursor=pointer]
+        - button "템플릿 이용 가이드" [ref=f32e202] [cursor=pointer]:
+          - generic [ref=f32e206]: 도움말
+  - generic [ref=f32e208]:
+    - text: "Frame:"
+    - generic [ref=f32e209]: 1280 × 640

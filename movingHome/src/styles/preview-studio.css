@@ -1,0 +1,298 @@
+/* prototype-preview-pattern — 해상도 드래그 프리뷰 셸 (self-contained / preview harness) */
+
+/* 프리뷰 하네스 전용 토큰·유틸 — 앱 테마(shadcn)와 무관하게 동작하도록 .pv-studio 스코프에 정의.
+   CLAUDE 지침: preview harness/스튜디오 컨트롤은 ODS 규칙(및 QA) 예외 대상. */
+.pv-studio {
+  --bg-weak: #F5F5F5;
+  --border-neutral: #EBEBEB;
+  --fg-neutral: #141414;
+  --fg-inverse: #FFFFFF;
+  --bg-brand-weak: #F0F8FC;
+  --fg-brand: #00A1FF;
+}
+.pv-studio .text-body-16 { font-size: 16px; line-height: 24px; font-weight: 400; letter-spacing: -0.3px; }
+.pv-studio .text-body-14 { font-size: 14px; line-height: 20px; font-weight: 400; letter-spacing: -0.3px; }
+.pv-studio .transition-default { transition: all 0.2s ease; }
+
+/* 우측 컨트롤 메뉴 패널 */
+.pv-panel {
+  width: 264px;
+  max-height: 100%;
+  overflow-y: auto;
+  background: #ffffff;
+  border: 1px solid var(--border-neutral);
+  border-radius: 16px;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.28);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pv-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 6px 8px;
+  border-bottom: 1px solid var(--border-neutral);
+}
+.pv-panel-title { font-size: 13px; font-weight: 700; color: var(--fg-neutral); letter-spacing: 0.02em; }
+.pv-panel-badge {
+  font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+  color: var(--fg-brand); background: var(--bg-brand-weak); border-radius: 4px; padding: 2px 6px;
+}
+
+/* ── 우측 컨트롤 패널 메뉴 상단 B2B/B2C 스위칭 탭 (segmented control) ──
+   3개 프로토타입(form/movingHome/movingpartner) 공통 스펙. preview harness (ODS 규칙·QA 예외). */
+.pv-tabs { display: flex; gap: 4px; background: #f5f5f5; border-radius: 10px; padding: 3px; }
+.pv-tab { flex: 1; padding: 7px 10px; border: none; background: transparent; border-radius: 8px; font-size: 12px; font-weight: 700; letter-spacing: 0.02em; color: #737373; cursor: pointer; transition: background 0.15s, color 0.15s, box-shadow 0.15s; }
+.pv-tab:hover:not(:disabled) { color: #141414; }
+.pv-tab.is-active { background: #fff; color: #00a1ff; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08); }
+.pv-tab:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.pv-studio {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  background: #1e1e1e;
+  color: #fff;
+}
+
+.pv-bar {
+  display: flex;
+  align-items: center;
+  padding: 9px 14px;
+  background: #2d2d2d;
+  border-bottom: 1px solid #404040;
+  flex-shrink: 0;
+  overflow-x: auto;
+}
+
+.pv-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+  min-width: min-content;
+}
+
+.pv-bar-sep {
+  width: 1px;
+  height: 24px;
+  background: #404040;
+  flex: 0 0 auto;
+  margin: 0 2px;
+}
+
+.pv-bpbtns {
+  display: flex;
+  gap: 4px;
+  flex: 0 0 auto;
+}
+
+.pv-bpbtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  color: #999;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.pv-bpbtn:hover {
+  color: #fff;
+  background: #3d3d3d;
+}
+
+.pv-bpbtn.on {
+  background: #0aa5ff;
+  color: #fff;
+}
+
+.pv-dim {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #1e1e1e;
+  border-radius: 6px;
+  padding: 4px 10px;
+  flex: 0 0 auto;
+}
+
+.pv-dim label {
+  color: #666;
+  font-size: 12px;
+}
+
+.pv-dim input {
+  width: 44px;
+  background: transparent;
+  color: #fff;
+  font-size: 13px;
+  text-align: center;
+  border: 0;
+  outline: none;
+  font-family: inherit;
+}
+
+.pv-dim span {
+  color: #666;
+  font-size: 12px;
+}
+
+.pv-range {
+  width: 120px;
+  accent-color: #0aa5ff;
+  height: 3px;
+  flex: 0 0 auto;
+}
+
+.pv-bpdot {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #1e1e1e;
+  border-radius: 6px;
+  padding: 5px 9px;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.pv-bpdot i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: block;
+}
+
+.pv-bpdot span {
+  font-size: 12px;
+  color: #999;
+}
+
+.pv-stage {
+  flex: 1;
+  overflow: auto;
+  padding: 28px 16px;
+  padding-right: var(--pv-aside-pad, 280px);
+  transition: padding-right 0.2s ease;
+}
+
+.pv-center {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 100%;
+  min-width: min-content;
+}
+
+.pv-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pv-framerow {
+  display: flex;
+  align-items: stretch;
+}
+
+.pv-frame {
+  background: #fff;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.pv-handle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #333;
+  transition: background 0.15s;
+  border: none;
+  padding: 0;
+}
+
+.pv-handle:hover {
+  background: rgba(10, 165, 255, 0.2);
+}
+
+.pv-handle.on {
+  background: rgba(10, 165, 255, 0.3);
+}
+
+.pv-handle svg {
+  color: #666;
+  transition: color 0.15s;
+}
+
+.pv-handle:hover svg,
+.pv-handle.on svg {
+  color: #0aa5ff;
+}
+
+.pv-handle--v {
+  width: 14px;
+  cursor: ew-resize;
+  align-self: flex-start;
+  height: 60px;
+  margin-top: 40px;
+}
+
+.pv-handle--l {
+  border-radius: 8px 0 0 8px;
+}
+
+.pv-handle--r {
+  border-radius: 0 8px 8px 0;
+}
+
+.pv-handle--b {
+  height: 14px;
+  width: 120px;
+  cursor: ns-resize;
+  border-radius: 0 0 8px 8px;
+}
+
+.pv-status {
+  display: flex;
+  align-items: center;
+  padding: 5px 12px;
+  background: #2d2d2d;
+  border-top: 1px solid #404040;
+  flex-shrink: 0;
+}
+
+.pv-status span {
+  font-size: 11px;
+  color: #666;
+}
+
+.pv-status b {
+  color: #bbb;
+  font-weight: 600;
+}
+
+.pv-aside {
+  position: absolute;
+  right: 12px;
+  top: 52px;
+  bottom: 32px;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+.pv-aside > * {
+  pointer-events: auto;
+}

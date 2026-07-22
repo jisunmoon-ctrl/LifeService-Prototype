@@ -1,0 +1,6 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "echo 'skip install (private @bucketplace registry unreachable on Vercel)'",
+  "buildCommand": "echo 'serving committed dist build'",
+  "outputDirectory": "dist"
+}

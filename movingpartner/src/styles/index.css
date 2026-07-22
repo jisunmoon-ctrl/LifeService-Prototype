@@ -1,0 +1,5 @@
+/* movingpartner 스타일 진입점.
+   - partner.css: index.html 에서 추출한 feature CSS (파트너/고객 화면).
+   - preview-studio.css: 프리뷰 하네스 (studio 모드에서만 사용, ODS 예외). */
+@import './partner.css';
+@import './preview-studio.css';

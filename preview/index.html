@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>prototypes — 통합 프리뷰</title>
+<meta name="robots" content="noindex, nofollow" />
+<style>
+/* 통합 프리뷰 허브 — 3개 프로토타입(form / movingHome / movingpartner)의 플로우를
+   하나의 우측 컨트롤 메뉴 패널에서 전환한다. preview harness 이므로 ODS 규칙(및 QA) 예외 대상.
+   각 프로토타입 PreviewStudio 의 pv-* 스펙(해상도 프리셋·드래그 핸들·패널)을 그대로 따른다. */
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  background: #1e1e1e; color: #fff;
+}
+
+.pv-studio { position: fixed; inset: 0; display: flex; flex-direction: column; background: #1e1e1e; }
+
+/* ── 상단 해상도 바 ── */
+.pv-bar { display: flex; align-items: center; padding: 9px 14px; background: #2d2d2d; border-bottom: 1px solid #404040; flex-shrink: 0; overflow-x: auto; }
+.pv-bar-row { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; min-width: min-content; }
+.pv-bar-sep { width: 1px; height: 24px; background: #404040; flex: 0 0 auto; margin: 0 2px; }
+.pv-bpbtns { display: flex; gap: 4px; flex: 0 0 auto; }
+.pv-bpbtn { display: flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: 8px; color: #999; font-size: 13px; font-weight: 600; white-space: nowrap; border: none; background: transparent; cursor: pointer; font-family: inherit; }
+.pv-bpbtn:hover { color: #fff; background: #3d3d3d; }
+.pv-bpbtn.on { background: #0aa5ff; color: #fff; }
+.pv-dim { display: flex; align-items: center; gap: 6px; background: #1e1e1e; border-radius: 6px; padding: 4px 10px; flex: 0 0 auto; }
+.pv-dim label, .pv-dim span { color: #666; font-size: 12px; }
+.pv-dim input { width: 44px; background: transparent; color: #fff; font-size: 13px; text-align: center; border: 0; outline: none; font-family: inherit; }
+.pv-range { width: 120px; accent-color: #0aa5ff; height: 3px; flex: 0 0 auto; }
+.pv-bpdot { display: flex; align-items: center; gap: 6px; background: #1e1e1e; border-radius: 6px; padding: 5px 9px; flex: 0 0 auto; white-space: nowrap; }
+.pv-bpdot i { width: 8px; height: 8px; border-radius: 50%; display: block; }
+.pv-bpdot span { font-size: 12px; color: #999; }
+
+/* ── 스테이지 / 프레임 ── */
+.pv-stage { flex: 1; overflow: auto; padding: 28px 16px; padding-right: var(--pv-aside-pad, 300px); transition: padding-right 0.2s ease; }
+.pv-center { display: flex; align-items: flex-start; justify-content: center; min-height: 100%; min-width: min-content; }
+.pv-col { display: flex; flex-direction: column; align-items: center; }
+.pv-framerow { display: flex; align-items: stretch; }
+.pv-frame { background: #fff; box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5); flex-shrink: 0; position: relative; overflow: hidden; }
+.pv-frame iframe { width: 100%; height: 100%; border: none; display: block; }
+.pv-handle { display: flex; align-items: center; justify-content: center; background: #333; transition: background 0.15s; border: none; padding: 0; cursor: pointer; }
+.pv-handle:hover { background: rgba(10, 165, 255, 0.2); }
+.pv-handle.on { background: rgba(10, 165, 255, 0.3); }
+.pv-handle svg { color: #666; transition: color 0.15s; }
+.pv-handle:hover svg, .pv-handle.on svg { color: #0aa5ff; }
+.pv-handle--v { width: 14px; cursor: ew-resize; align-self: flex-start; height: 60px; margin-top: 40px; }
+.pv-handle--l { border-radius: 8px 0 0 8px; }
+.pv-handle--r { border-radius: 0 8px 8px 0; }
+.pv-handle--b { height: 14px; width: 120px; cursor: ns-resize; border-radius: 0 0 8px 8px; }
+
+/* 서버 미실행 안내 (프레임 내부) */
+.pv-offline { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 24px; text-align: center; color: #141414; background: #fff; }
+.pv-offline b { font-size: 15px; }
+.pv-offline p { margin: 0; font-size: 13px; color: #737373; line-height: 1.6; }
+.pv-offline code { background: #f5f5f5; border-radius: 4px; padding: 2px 6px; font-size: 12px; }
+
+/* ── 하단 상태바 ── */
+.pv-status { display: flex; align-items: center; gap: 14px; padding: 5px 12px; background: #2d2d2d; border-top: 1px solid #404040; flex-shrink: 0; }
+.pv-status span { font-size: 11px; color: #666; }
+.pv-status b { color: #bbb; font-weight: 600; }
+
+/* ── 우측 컨트롤 패널 ── */
+.pv-aside { position: absolute; right: 12px; top: 52px; bottom: 32px; z-index: 50; display: flex; flex-direction: column; pointer-events: none; }
+.pv-aside > * { pointer-events: auto; }
+.pv-panel { width: 280px; max-height: 100%; overflow-y: auto; background: #fff; border-radius: 16px; box-shadow: 0 12px 48px rgba(0, 0, 0, 0.28); padding: 12px; display: flex; flex-direction: column; gap: 8px; color: #141414; }
+.pv-panel-head { display: flex; align-items: center; gap: 6px; justify-content: space-between; padding: 4px 6px 8px; border-bottom: 1px solid #ebebeb; }
+.pv-panel-title { font-size: 13px; font-weight: 700; letter-spacing: 0.02em; }
+.pv-panel-badge { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: #00a1ff; background: #f0f8fc; border-radius: 4px; padding: 2px 6px; }
+.pv-panel-restart { display: flex; align-items: center; gap: 8px; width: 100%; padding: 8px 12px; border: none; background: transparent; border-radius: 8px; color: #141414; font-size: 14px; cursor: pointer; text-align: left; transition: background 0.15s; font-family: inherit; }
+.pv-panel-restart:hover { background: #f5f5f5; }
+
+/* 상단 B2B/B2C 스위칭 탭 (3개 프로토타입 공통 스펙) */
+.pv-tabs { display: flex; gap: 4px; background: #f5f5f5; border-radius: 10px; padding: 3px; }
+.pv-tab { flex: 1; padding: 7px 10px; border: none; background: transparent; border-radius: 8px; font-size: 12px; font-weight: 700; letter-spacing: 0.02em; color: #737373; cursor: pointer; transition: background 0.15s, color 0.15s, box-shadow 0.15s; font-family: inherit; }
+.pv-tab:hover:not(:disabled) { color: #141414; }
+.pv-tab.is-active { background: #fff; color: #00a1ff; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08); }
+.pv-tab:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* 메뉴 트리 */
+.pv-nav { display: flex; flex-direction: column; gap: 4px; }
+.pv-nav-group { display: flex; flex-direction: column; gap: 4px; }
+.pv-nav-grouphead { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; padding: 8px 12px; border: none; border-radius: 8px; background: #f5f5f5; color: #141414; cursor: pointer; transition: background 0.15s; font-family: inherit; text-align: left; }
+.pv-nav-grouphead:hover { background: #ebebeb; }
+.pv-nav-grouphead.has-active { background: #f0f8fc; color: #00a1ff; }
+.pv-nav-grouplabel { font-size: 14px; font-weight: 600; flex: 1; }
+.pv-nav-groupmeta { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.pv-nav-chev { flex-shrink: 0; opacity: 0.6; transition: transform 0.15s; }
+.pv-nav-items { display: flex; flex-direction: column; gap: 2px; margin-left: 12px; padding-left: 8px; border-left: 1px solid #ebebeb; }
+.pv-nav-item { display: flex; align-items: center; justify-content: space-between; gap: 6px; width: 100%; padding: 8px 12px; border: none; border-radius: 8px; background: transparent; color: #141414; font-size: 13px; text-align: left; cursor: pointer; transition: background 0.15s; font-family: inherit; }
+.pv-nav-item:hover { background: #f5f5f5; }
+.pv-nav-item.is-active { background: #0f172a; color: #fff; }
+.pv-nav-item span { flex: 1; }
+
+/* 프로젝트 뱃지 · 서버 상태 dot */
+.pv-proj { font-size: 9px; font-weight: 700; letter-spacing: 0.02em; border-radius: 4px; padding: 2px 5px; line-height: 1.4; white-space: nowrap; }
+.pv-proj--form { color: #0069c2; background: #e8f4fd; }
+.pv-proj--movingHome { color: #6b3fd4; background: #f0ebfd; }
+.pv-proj--movingpartner { color: #0a7a52; background: #e6f7f0; }
+.pv-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; background: #d0d0d0; }
+.pv-dot.up { background: #22c55e; }
+.pv-dot.down { background: #ef4444; }
+</style>
+</head>
+<body>
+<div class="pv-studio">
+  <div class="pv-bar">
+    <div class="pv-bar-row">
+      <div class="pv-bpbtns" id="bpbtns"></div>
+      <span class="pv-bar-sep"></span>
+      <div class="pv-dim"><label for="pv-w">W</label><input id="pv-w" type="text" inputmode="numeric" value="375" /><span>px</span></div>
+      <div class="pv-dim"><label for="pv-h">H</label><input id="pv-h" type="text" inputmode="numeric" value="720" /><span>px</span></div>
+      <input class="pv-range" id="pv-range" type="range" min="320" max="1920" value="375" aria-label="가로 해상도" />
+      <div class="pv-bpdot"><i id="bpdot"></i><span id="bplabel">Mobile</span></div>
+    </div>
+  </div>
+
+  <div class="pv-stage" id="stage">
+    <div class="pv-center">
+      <div class="pv-col">
+        <div class="pv-framerow">
+          <button type="button" class="pv-handle pv-handle--v pv-handle--l" data-side="l" aria-label="좌측 핸들">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="6" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="18" r="1"/><circle cx="15" cy="6" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="18" r="1"/></svg>
+          </button>
+          <div class="pv-frame" id="frame"></div>
+          <button type="button" class="pv-handle pv-handle--v pv-handle--r" data-side="r" aria-label="우측 핸들">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="6" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="18" r="1"/><circle cx="15" cy="6" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="18" r="1"/></svg>
+          </button>
+        </div>
+        <button type="button" class="pv-handle pv-handle--b" data-side="b" aria-label="하단 핸들">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="9" r="1"/><circle cx="12" cy="9" r="1"/><circle cx="18" cy="9" r="1"/><circle cx="6" cy="15" r="1"/><circle cx="12" cy="15" r="1"/><circle cx="18" cy="15" r="1"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pv-aside" id="aside">
+    <div class="pv-panel">
+      <div class="pv-panel-head">
+        <span class="pv-panel-title">prototypes · 통합 프리뷰</span>
+        <span class="pv-panel-badge">hub</span>
+      </div>
+      <button type="button" class="pv-panel-restart" id="restart">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+        <span>Restart</span>
+      </button>
+      <div class="pv-tabs" id="tabs" role="tablist" aria-label="B2B / B2C 플로우 구분"></div>
+      <div class="pv-nav" id="nav"></div>
+    </div>
+  </div>
+
+  <div class="pv-status">
+    <span>Frame: <b id="st-frame">375 × 720</b></span>
+    <span>Flow: <b id="st-flow">—</b></span>
+    <span>Screen: <b id="st-screen">—</b></span>
+  </div>
+</div>
+
+<script>
+/* ── 프로토타입 dev 서버 ── */
+var PROJECTS = {
+  form:          { label: 'form',          origin: 'http://localhost:5181', entry: '/form-prototype.html' },
+  movingHome:    { label: 'movingHome',    origin: 'http://localhost:5182', entry: '/movingHome-prototype.html' },
+  movingpartner: { label: 'movingpartner', origin: 'http://localhost:5183', entry: '/movingpartner-prototype.html' }
+};
+
+/* ── 플로우 메뉴 위계 (3개 프로토타입 공통 규칙: B2B/B2C 탭 → 플로우 → 화면) ── */
+var TABS = [
+  { id: 'b2c', label: 'B2C', flows: [
+    { id: 'construction-crosssell', label: '시공신청 크로스셀링 flow', project: 'form', items: [
+      { id: 'cxs_contact',   label: '① 시공 연락처 입력 (시작)' },
+      { id: 'cxs_crosssell', label: '② 이사+청소 크로스셀 제안' },
+      { id: 'cxs_departure', label: '③ 출발지' },
+      { id: 'cxs_type',      label: '④ 이사 타입' },
+      { id: 'cxs_confirm',   label: '⑤ 신청 정보 확인' },
+      { id: 'cxs_list',      label: '⑥ 매칭 리스트 (상담내역)' }
+    ]},
+    { id: 'estimate-funnel-ux', label: '견적신청퍼널 UX iteration', project: 'form', items: [
+      { id: 'est_home',              label: '① 이사 홈 (시작)' },
+      { id: 'est_form',              label: '② 견적 정보 입력' },
+      { id: 'est_belongings',        label: '③ 이삿짐 정보 (목록+사진옵션)' },
+      { id: 'est_belongings_photo',  label: '③-1 사진·영상 (옵션)' },
+      { id: 'est_belongings_detail', label: '③-2 세부 정보' },
+      { id: 'est_confirm',           label: '④ 신청 정보 확인' },
+      { id: 'est_crosssell',         label: '⑤ 신청완료·크로스셀' },
+      { id: 'est_list',              label: '⑥ 매칭 리스트' }
+    ]},
+    { id: 'moving-form', label: '이사', project: 'form', items: [
+      { id: 'input_step1', label: '이사종류' },
+      { id: 'input_step2', label: '이사일/시간대' },
+      { id: 'input_step3', label: '출발지' },
+      { id: 'input_step4', label: '도착지' },
+      { id: 'input_step5', label: '이삿짐 입력' },
+      { id: 'input_step6', label: '개인정보' }
+    ]},
+    { id: 'cleaning-form', label: '이사청소', project: 'form', items: [
+      { id: 'cleaning_step1', label: '청소 희망일' },
+      { id: 'cleaning_step2', label: '청소 장소 정보' },
+      { id: 'cleaning_step3', label: '연락처 정보' },
+      { id: 'cleaning_step4', label: '연락처 정보 (입력완료)' }
+    ]},
+    { id: 'moving-home-flow', label: '이사홈', project: 'movingHome', items: [
+      { id: 'home',    label: '① 이사홈 (메인 · 단일 페이지)' },
+      { id: 'content', label: '② 이사 꿀팁 콘텐츠 상세' },
+      { id: 'quote',   label: '③ 견적 신청' }
+    ]},
+    { id: 'guarantee-contract-flow', label: '책임보장 견적 계약 flow', project: 'movingpartner', items: [
+      { id: 'customer',            label: '① 매칭 파트너 목록 · 견적 확인' },
+      { id: 'customer_terms',      label: '② 약관 동의' },
+      { id: 'customer_contracted', label: '③ 계약 확정' }
+    ]}
+  ]},
+  { id: 'b2b', label: 'B2B', flows: [
+    { id: 'guarantee-estimate-flow', label: '책임보장 견적 발송 flow', project: 'movingpartner', items: [
+      { id: 'order',        label: '① 오더 (상담 목록)' },
+      { id: 'order_detail', label: '② 상담 상세' },
+      { id: 'chatting',     label: '③ 채팅' },
+      { id: 'schedule',     label: '④ 일정마감' },
+      { id: 'cash',         label: '⑤ 캐시' },
+      { id: 'my',           label: '⑥ 마이페이지' }
+    ]}
+  ]}
+];
+
+var BPS = [
+  { label: 'Mobile',  w: 375,  h: 720 },
+  { label: 'Tablet',  w: 768,  h: 1024 },
+  { label: 'Desktop', w: 1024, h: 800 }
+];
+var W_MIN = 320, W_MAX = 1920, H_MIN = 300, H_MAX = 2400;
+
+/* ── 상태 ── */
+var state = {
+  flowId: TABS[0].flows[0].id,
+  screenId: TABS[0].flows[0].items[0].id,
+  openFlowId: TABS[0].flows[0].id,
+  w: 375, h: 720,
+  reloadNonce: 0,
+  health: {} // project → 'up' | 'down' | 'unknown'
+};
+
+var $ = function (id) { return document.getElementById(id); };
+var allFlows = TABS.reduce(function (acc, t) { return acc.concat(t.flows); }, []);
+function findFlow(id) { for (var i = 0; i < allFlows.length; i++) if (allFlows[i].id === id) return allFlows[i]; return null; }
+function tabOfFlow(id) { for (var i = 0; i < TABS.length; i++) for (var j = 0; j < TABS[i].flows.length; j++) if (TABS[i].flows[j].id === id) return TABS[i]; return TABS[0]; }
+function clamp(v, min, max) { return Math.min(max, Math.max(min, Math.round(v))); }
+function bpLabel(w) { return w < 768 ? 'Mobile' : (w < 1024 ? 'Tablet' : 'Desktop'); }
+function bpColor(w) { return w < 768 ? '#f59e0b' : (w < 1024 ? '#8b5cf6' : '#22c55e'); }
+
+/* ── 상단 해상도 바 ── */
+function renderBpButtons() {
+  var cur = bpLabel(state.w);
+  $('bpbtns').innerHTML = BPS.map(function (bp) {
+    return '<button type="button" class="pv-bpbtn' + (cur === bp.label ? ' on' : '') + '" data-w="' + bp.w + '" data-h="' + bp.h + '">' + bp.label + '</button>';
+  }).join('');
+}
+function applySize(w, h) {
+  state.w = clamp(w, W_MIN, W_MAX);
+  state.h = clamp(h, H_MIN, H_MAX);
+  var frame = $('frame');
+  frame.style.width = state.w + 'px';
+  frame.style.height = state.h + 'px';
+  $('pv-w').value = state.w;
+  $('pv-h').value = state.h;
+  $('pv-range').value = state.w;
+  $('bpdot').style.background = bpColor(state.w);
+  $('bplabel').textContent = bpLabel(state.w);
+  $('st-frame').textContent = state.w + ' × ' + state.h;
+  renderBpButtons();
+}
+
+/* ── 프레임(iframe) ── */
+function frameUrl(flow, screenId) {
+  var p = PROJECTS[flow.project];
+  return p.origin + p.entry + '?preview=1&screen=' + encodeURIComponent(screenId) + '&hub=' + state.reloadNonce;
+}
+function renderFrame() {
+  var flow = findFlow(state.flowId);
+  var proj = PROJECTS[flow.project];
+  var frame = $('frame');
+  if (state.health[flow.project] === 'down') {
+    frame.innerHTML =
+      '<div class="pv-offline">' +
+      '<b>' + proj.label + ' dev 서버가 실행 중이 아닙니다</b>' +
+      '<p>' + proj.origin + ' 에 연결할 수 없습니다.<br />' +
+      'Cursor 에서 <code>Tasks: Run Task → preview: ' + proj.label + '</code> 를 실행하거나,<br />' +
+      '터미널에서 <code>cd ' + proj.label + ' &amp;&amp; npm run dev</code> 를 실행하세요.</p>' +
+      '</div>';
+    return;
+  }
+  var url = frameUrl(flow, state.screenId);
+  var iframe = frame.querySelector('iframe');
+  if (!iframe) { iframe = document.createElement('iframe'); iframe.title = 'prototype preview'; frame.innerHTML = ''; frame.appendChild(iframe); }
+  if (iframe.getAttribute('src') !== url) iframe.setAttribute('src', url);
+}
+
+/* ── 우측 패널 ── */
+function renderTabs() {
+  var activeTab = tabOfFlow(state.flowId);
+  $('tabs').innerHTML = TABS.map(function (t) {
+    var active = t.id === activeTab.id;
+    return '<button type="button" role="tab" aria-selected="' + active + '" class="pv-tab' + (active ? ' is-active' : '') + '" data-tab="' + t.id + '">' + t.label + '</button>';
+  }).join('');
+}
+function renderNav() {
+  var activeTab = tabOfFlow(state.flowId);
+  $('nav').innerHTML = activeTab.flows.map(function (flow) {
+    var open = state.openFlowId === flow.id;
+    var hasActive = state.flowId === flow.id;
+    var dot = state.health[flow.project] || 'unknown';
+    var head =
+      '<button type="button" class="pv-nav-grouphead' + (hasActive && !open ? ' has-active' : '') + '" data-flow="' + flow.id + '">' +
+        '<span class="pv-nav-grouplabel">' + flow.label + '</span>' +
+        '<span class="pv-nav-groupmeta">' +
+          '<span class="pv-proj pv-proj--' + flow.project + '">' + PROJECTS[flow.project].label + '</span>' +
+          '<span class="pv-dot ' + dot + '" title="dev 서버 ' + (dot === 'up' ? '실행 중' : dot === 'down' ? '미실행' : '확인 중') + '"></span>' +
+          '<svg class="pv-nav-chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform:' + (open ? 'rotate(90deg)' : 'none') + '"><path d="M9 18l6-6-6-6"/></svg>' +
+        '</span>' +
+      '</button>';
+    var items = open
+      ? '<div class="pv-nav-items">' + flow.items.map(function (it) {
+          var on = hasActive && state.screenId === it.id;
+          return '<button type="button" class="pv-nav-item' + (on ? ' is-active' : '') + '" data-flow="' + flow.id + '" data-screen="' + it.id + '">' +
+            '<span>' + it.label + '</span>' +
+            (on ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>' : '') +
+          '</button>';
+        }).join('') + '</div>'
+      : '';
+    return '<div class="pv-nav-group">' + head + items + '</div>';
+  }).join('');
+}
+function renderStatus() {
+  var flow = findFlow(state.flowId);
+  var item = null;
+  for (var i = 0; i < flow.items.length; i++) if (flow.items[i].id === state.screenId) item = flow.items[i];
+  $('st-flow').textContent = flow.label + ' (' + PROJECTS[flow.project].label + ')';
+  $('st-screen').textContent = item ? item.label : state.screenId;
+}
+function renderPanel() { renderTabs(); renderNav(); renderStatus(); }
+
+/* ── 화면 선택 ── */
+function select(flowId, screenId) {
+  var flow = findFlow(flowId);
+  if (!flow) return;
+  state.flowId = flowId;
+  state.screenId = screenId || flow.items[0].id;
+  state.openFlowId = flowId;
+  renderPanel();
+  renderFrame();
+}
+
+/* ── dev 서버 헬스체크 ── */
+function checkHealth() {
+  Object.keys(PROJECTS).forEach(function (key) {
+    var p = PROJECTS[key];
+    var prev = state.health[key];
+    fetch(p.origin + p.entry, { mode: 'no-cors', cache: 'no-store' })
+      .then(function () { state.health[key] = 'up'; })
+      .catch(function () { state.health[key] = 'down'; })
+      .then(function () {
+        if (state.health[key] !== prev) {
+          renderNav();
+          if (findFlow(state.flowId).project === key) renderFrame();
+        }
+      });
+  });
+}
+
+/* ── 이벤트 바인딩 ── */
+$('bpbtns').addEventListener('click', function (e) {
+  var btn = e.target.closest('.pv-bpbtn');
+  if (btn) applySize(Number(btn.dataset.w), Number(btn.dataset.h));
+});
+$('tabs').addEventListener('click', function (e) {
+  var btn = e.target.closest('.pv-tab');
+  if (!btn) return;
+  var tab = null;
+  for (var i = 0; i < TABS.length; i++) if (TABS[i].id === btn.dataset.tab) tab = TABS[i];
+  if (!tab || !tab.flows.length) return;
+  if (tab.id === tabOfFlow(state.flowId).id) return;
+  select(tab.flows[0].id, tab.flows[0].items[0].id);
+});
+$('nav').addEventListener('click', function (e) {
+  var item = e.target.closest('.pv-nav-item');
+  if (item) { select(item.dataset.flow, item.dataset.screen); return; }
+  var head = e.target.closest('.pv-nav-grouphead');
+  if (head) {
+    state.openFlowId = state.openFlowId === head.dataset.flow ? null : head.dataset.flow;
+    renderNav();
+  }
+});
+$('restart').addEventListener('click', function () {
+  var flow = findFlow(state.flowId);
+  state.screenId = flow.items[0].id;
+  state.reloadNonce++;
+  renderPanel();
+  renderFrame();
+});
+$('pv-w').addEventListener('change', function () { applySize(parseInt(this.value, 10) || state.w, state.h); });
+$('pv-h').addEventListener('change', function () { applySize(state.w, parseInt(this.value, 10) || state.h); });
+$('pv-range').addEventListener('input', function () { applySize(Number(this.value), state.h); });
+
+/* 드래그 리사이즈 (좌/우: delta×2, 하단: 높이) */
+var drag = { active: false, side: null, x: 0, y: 0, w: 0, h: 0 };
+document.querySelectorAll('.pv-handle').forEach(function (handle) {
+  handle.addEventListener('mousedown', function (e) {
+    e.preventDefault();
+    drag = { active: true, side: handle.dataset.side, x: e.clientX, y: e.clientY, w: state.w, h: state.h };
+    handle.classList.add('on');
+    document.body.style.cursor = handle.dataset.side === 'b' ? 'ns-resize' : 'ew-resize';
+    document.body.style.userSelect = 'none';
+    // 드래그 중 iframe 이 마우스 이벤트를 삼키지 않게
+    var iframe = $('frame').querySelector('iframe');
+    if (iframe) iframe.style.pointerEvents = 'none';
+  });
+});
+window.addEventListener('mousemove', function (e) {
+  if (!drag.active) return;
+  if (drag.side === 'b') applySize(drag.w, drag.h + (e.clientY - drag.y));
+  else {
+    var delta = (e.clientX - drag.x) * 2;
+    applySize(drag.side === 'r' ? drag.w + delta : drag.w - delta, drag.h);
+  }
+});
+window.addEventListener('mouseup', function () {
+  if (!drag.active) return;
+  drag.active = false;
+  document.querySelectorAll('.pv-handle').forEach(function (h) { h.classList.remove('on'); });
+  document.body.style.cursor = '';
+  document.body.style.userSelect = '';
+  var iframe = $('frame').querySelector('iframe');
+  if (iframe) iframe.style.pointerEvents = '';
+});
+
+/* 인-피처 네비게이션 → 메뉴 트리 하이라이트 동기화 */
+window.addEventListener('message', function (e) {
+  var data = e.data;
+  if (!data || !data.__pvNav || !data.screen) return;
+  var flow = findFlow(state.flowId);
+  for (var i = 0; i < flow.items.length; i++) {
+    if (flow.items[i].id === data.screen) { state.screenId = data.screen; renderPanel(); return; }
+  }
+  // 같은 프로젝트의 다른 플로우로 이동한 경우
+  for (var j = 0; j < allFlows.length; j++) {
+    if (allFlows[j].project !== flow.project) continue;
+    for (var k = 0; k < allFlows[j].items.length; k++) {
+      if (allFlows[j].items[k].id === data.screen) {
+        state.flowId = allFlows[j].id; state.openFlowId = allFlows[j].id; state.screenId = data.screen;
+        renderPanel();
+        return;
+      }
+    }
+  }
+});
+
+/* 패널 폭만큼 스테이지 우측 패딩 확보 */
+var asideObserver = new ResizeObserver(function () {
+  $('stage').style.setProperty('--pv-aside-pad', Math.ceil($('aside').getBoundingClientRect().width + 24) + 'px');
+});
+asideObserver.observe($('aside'));
+
+/* ── 부트 ── */
+applySize(375, 720);
+renderPanel();
+renderFrame();
+checkHealth();
+setInterval(checkHealth, 10000);
+</script>
+</body>
+</html>
