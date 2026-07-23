@@ -17,18 +17,19 @@
 각 화면은 해당 프로토타입의 dev 서버를 `?preview=1&screen=<id>` 딥링크로 iframe 로드합니다.
 
 ```
-http://localhost:5179        # 진입점 index.html — 허브·3개 프로토타입 링크 + dev 서버 상태
-http://localhost:5180        # 통합 프리뷰 허브 (preview/index.html · 무의존 self-contained)
+http://localhost:5180        # 통합 프리뷰 허브 (preview/index.html · 무의존 self-contained) ← 진입점
 ├── http://localhost:5181    # form
 ├── http://localhost:5182    # movingHome
 └── http://localhost:5183    # movingpartner
 ```
 
+로컬 프리뷰 URL 은 `.vscode/settings.json` 의 `workbench.externalUriOpeners` 설정에 따라
+외부 브라우저 대신 **Cursor 내장 Simple Browser** 탭으로 열립니다.
+
 실행 — Cursor 에서 `Cmd+Shift+B` (또는 `Tasks: Run Task → preview: 전체 실행`), 혹은 터미널에서:
 
 ```bash
-python3 -m http.server 5179 &                      # index (진입점)
-(cd preview && python3 -m http.server 5180) &
+(cd preview && python3 -m http.server 5180) &      # 허브 (진입점)
 (cd form && npm run dev -- --port 5181) &
 (cd movingHome && npm run dev -- --port 5182) &
 (cd movingpartner && npm run dev -- --port 5183) &
