@@ -14,7 +14,8 @@ const PANEL_TABS: PanelTab[] = [
     label: 'B2C',
     sections: [
       {
-        id: 'b2c-flows',
+        id: 'b2c-prototype',
+        label: 'flow prototype',
         groups: [
           {
             id: 'guarantee-contract-flow',
@@ -34,7 +35,8 @@ const PANEL_TABS: PanelTab[] = [
     label: 'B2B',
     sections: [
       {
-        id: 'b2b-flows',
+        id: 'b2b-prototype',
+        label: 'flow prototype',
         groups: [
           {
             id: 'guarantee-estimate-flow',

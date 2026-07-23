@@ -14,9 +14,19 @@
 ├── Restart         현재 플로우의 첫 화면으로 리셋
 ├── B2B / B2C 탭    ← 스위칭 탭 (segmented control)
 └── 메뉴 트리
-    └── 플로우 그룹 (아코디언, 동시 1개 오픈)
-        └── 화면 아이템 (선택 시 체크)
+    └── 섹션 (메뉴 구분자 — `flow prototype` / `flow prod.`)
+        └── 플로우 그룹 (아코디언, 동시 1개 오픈)
+            └── 화면 아이템 (선택 시 체크)
 ```
+
+**섹션 = 메뉴 구분자.** 헤더는 `{sectionIndex + 1}. {label}` 로 렌더된다 (uppercase 11px/700, opacity 0.45).
+
+| 섹션 | 뜻 |
+|---|---|
+| `flow prototype` | 탐색·검증용 프로토타입 플로우 |
+| `flow prod.` | 운영 반영(또는 반영 예정) 플로우 |
+
+플로우별 소속은 [워크스페이스 README](../README.md#메뉴-트리-규칙) 를 정본으로 한다.
 
 데이터 모델 (`PrototypeNavMenu.tsx`):
 
@@ -80,5 +90,8 @@ NavMenuItem    { id, label }              // = 화면 (id 는 화면 스위치 �
 
 `pv-studio` / `pv-bar` / `pv-bpbtn` / `pv-dim` / `pv-range` / `pv-bpdot` / `pv-stage` / `pv-frame` / `pv-handle`
 / `pv-aside` / `pv-panel` / `pv-panel-head` / `pv-panel-restart` / **`pv-tabs` · `pv-tab`** / `pv-nav-*`
+(섹션: **`pv-nav-section` · `pv-nav-sectionhead` · `pv-nav-sectionlabel` · `pv-nav-sectionbadge` · `pv-nav-groups`**)
+
+> `form` · `movingHome` 은 같은 위계를 Tailwind 유틸 클래스로 렌더한다 (클래스명만 다르고 스펙은 동일).
 
 정의 위치: 각 프로젝트 `src/styles/preview-studio.css`, 허브는 `preview/index.html` 인라인.

@@ -80,7 +80,13 @@ body {
 .pv-tab:disabled { opacity: 0.4; cursor: not-allowed; }
 
 /* 메뉴 트리 */
-.pv-nav { display: flex; flex-direction: column; gap: 4px; }
+.pv-nav { display: flex; flex-direction: column; gap: 14px; }
+/* 섹션 = 메뉴 구분자 (PANEL_SPEC §1 · 각 프로젝트 preview-studio.css 와 동일 스펙) */
+.pv-nav-section { display: flex; flex-direction: column; gap: 6px; }
+.pv-nav-sectionhead { display: flex; align-items: center; gap: 6px; padding: 0 8px; }
+.pv-nav-sectionlabel { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #141414; opacity: 0.45; }
+.pv-nav-sectionbadge { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; color: #00a1ff; background: #f0f8fc; border-radius: 4px; padding: 2px 6px; line-height: 1; }
+.pv-nav-groups { display: flex; flex-direction: column; gap: 4px; }
 .pv-nav-group { display: flex; flex-direction: column; gap: 4px; }
 .pv-nav-grouphead { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; padding: 8px 12px; border: none; border-radius: 8px; background: #f5f5f5; color: #141414; cursor: pointer; transition: background 0.15s; font-family: inherit; text-align: left; }
 .pv-nav-grouphead:hover { background: #ebebeb; }
@@ -166,60 +172,68 @@ var PROJECTS = {
   movingpartner: { label: 'movingpartner', origin: 'http://localhost:5183', entry: '/movingpartner-prototype.html' }
 };
 
-/* ── 플로우 메뉴 위계 (3개 프로토타입 공통 규칙: B2B/B2C 탭 → 플로우 → 화면) ── */
+/* ── 플로우 메뉴 위계 (PANEL_SPEC §1: B2B/B2C 탭 → 섹션 → 플로우 그룹 → 화면) ──
+   섹션 = 메뉴 구분자. `flow prototype`(탐색용 프로토타입) / `flow prod.`(운영 반영 플로우) 로 나눈다.
+   label 을 생략하면 헤더 없이 플로우가 평평하게 붙는다. */
 var TABS = [
-  { id: 'b2c', label: 'B2C', flows: [
-    { id: 'construction-crosssell', label: '시공신청 크로스셀링 flow', project: 'form', items: [
-      { id: 'cxs_contact',   label: '① 시공 연락처 입력 (시작)' },
-      { id: 'cxs_crosssell', label: '② 이사+청소 크로스셀 제안' },
-      { id: 'cxs_departure', label: '③ 출발지' },
-      { id: 'cxs_type',      label: '④ 이사 타입' },
-      { id: 'cxs_confirm',   label: '⑤ 신청 정보 확인' },
-      { id: 'cxs_list',      label: '⑥ 매칭 리스트 (상담내역)' }
+  { id: 'b2c', label: 'B2C', sections: [
+    { id: 'b2c-prototype', label: 'flow prototype', groups: [
+      { id: 'construction-crosssell', label: '시공신청 크로스셀링 flow', project: 'form', items: [
+        { id: 'cxs_contact',   label: '① 시공 연락처 입력 (시작)' },
+        { id: 'cxs_crosssell', label: '② 이사+청소 크로스셀 제안' },
+        { id: 'cxs_departure', label: '③ 출발지' },
+        { id: 'cxs_type',      label: '④ 이사 타입' },
+        { id: 'cxs_confirm',   label: '⑤ 신청 정보 확인' },
+        { id: 'cxs_list',      label: '⑥ 매칭 리스트 (상담내역)' }
+      ]},
+      { id: 'estimate-funnel-ux', label: '견적신청퍼널 UX iteration', project: 'form', items: [
+        { id: 'est_home',              label: '① 이사 홈 (시작)' },
+        { id: 'est_form',              label: '② 견적 정보 입력' },
+        { id: 'est_belongings',        label: '③ 이삿짐 정보 (목록+사진옵션)' },
+        { id: 'est_belongings_photo',  label: '③-1 사진·영상 (옵션)' },
+        { id: 'est_belongings_detail', label: '③-2 세부 정보' },
+        { id: 'est_confirm',           label: '④ 신청 정보 확인' },
+        { id: 'est_crosssell',         label: '⑤ 신청완료·크로스셀' },
+        { id: 'est_list',              label: '⑥ 매칭 리스트' }
+      ]},
+      { id: 'guarantee-contract-flow', label: '책임보장 견적 계약 flow', project: 'movingpartner', items: [
+        { id: 'customer',            label: '① 매칭 파트너 목록 · 견적 확인' },
+        { id: 'customer_terms',      label: '② 약관 동의' },
+        { id: 'customer_contracted', label: '③ 계약 확정' }
+      ]}
     ]},
-    { id: 'estimate-funnel-ux', label: '견적신청퍼널 UX iteration', project: 'form', items: [
-      { id: 'est_home',              label: '① 이사 홈 (시작)' },
-      { id: 'est_form',              label: '② 견적 정보 입력' },
-      { id: 'est_belongings',        label: '③ 이삿짐 정보 (목록+사진옵션)' },
-      { id: 'est_belongings_photo',  label: '③-1 사진·영상 (옵션)' },
-      { id: 'est_belongings_detail', label: '③-2 세부 정보' },
-      { id: 'est_confirm',           label: '④ 신청 정보 확인' },
-      { id: 'est_crosssell',         label: '⑤ 신청완료·크로스셀' },
-      { id: 'est_list',              label: '⑥ 매칭 리스트' }
-    ]},
-    { id: 'moving-form', label: '이사', project: 'form', items: [
-      { id: 'input_step1', label: '이사종류' },
-      { id: 'input_step2', label: '이사일/시간대' },
-      { id: 'input_step3', label: '출발지' },
-      { id: 'input_step4', label: '도착지' },
-      { id: 'input_step5', label: '이삿짐 입력' },
-      { id: 'input_step6', label: '개인정보' }
-    ]},
-    { id: 'cleaning-form', label: '이사청소', project: 'form', items: [
-      { id: 'cleaning_step1', label: '청소 희망일' },
-      { id: 'cleaning_step2', label: '청소 장소 정보' },
-      { id: 'cleaning_step3', label: '연락처 정보' },
-      { id: 'cleaning_step4', label: '연락처 정보 (입력완료)' }
-    ]},
-    { id: 'moving-home-flow', label: '이사홈', project: 'movingHome', items: [
-      { id: 'home',    label: '① 이사홈 (메인 · 단일 페이지)' },
-      { id: 'content', label: '② 이사 꿀팁 콘텐츠 상세' },
-      { id: 'quote',   label: '③ 견적 신청' }
-    ]},
-    { id: 'guarantee-contract-flow', label: '책임보장 견적 계약 flow', project: 'movingpartner', items: [
-      { id: 'customer',            label: '① 매칭 파트너 목록 · 견적 확인' },
-      { id: 'customer_terms',      label: '② 약관 동의' },
-      { id: 'customer_contracted', label: '③ 계약 확정' }
+    { id: 'b2c-prod', label: 'flow prod.', groups: [
+      { id: 'moving-form', label: '이사신청폼', project: 'form', items: [
+        { id: 'input_step1', label: '이사종류' },
+        { id: 'input_step2', label: '이사일/시간대' },
+        { id: 'input_step3', label: '출발지' },
+        { id: 'input_step4', label: '도착지' },
+        { id: 'input_step5', label: '이삿짐 입력' },
+        { id: 'input_step6', label: '개인정보' }
+      ]},
+      { id: 'cleaning-form', label: '이사청소 신청폼', project: 'form', items: [
+        { id: 'cleaning_step1', label: '청소 희망일' },
+        { id: 'cleaning_step2', label: '청소 장소 정보' },
+        { id: 'cleaning_step3', label: '연락처 정보' },
+        { id: 'cleaning_step4', label: '연락처 정보 (입력완료)' }
+      ]},
+      { id: 'moving-home-flow', label: '이사홈', project: 'movingHome', items: [
+        { id: 'home',    label: '① 이사홈 (메인 · 단일 페이지)' },
+        { id: 'content', label: '② 이사 꿀팁 콘텐츠 상세' },
+        { id: 'quote',   label: '③ 견적 신청' }
+      ]}
     ]}
   ]},
-  { id: 'b2b', label: 'B2B', flows: [
-    { id: 'guarantee-estimate-flow', label: '책임보장 견적 발송 flow', project: 'movingpartner', items: [
-      { id: 'order',        label: '① 오더 (상담 목록)' },
-      { id: 'order_detail', label: '② 상담 상세' },
-      { id: 'chatting',     label: '③ 채팅' },
-      { id: 'schedule',     label: '④ 일정마감' },
-      { id: 'cash',         label: '⑤ 캐시' },
-      { id: 'my',           label: '⑥ 마이페이지' }
+  { id: 'b2b', label: 'B2B', sections: [
+    { id: 'b2b-prototype', label: 'flow prototype', groups: [
+      { id: 'guarantee-estimate-flow', label: '책임보장 견적 발송 flow', project: 'movingpartner', items: [
+        { id: 'order',        label: '① 오더 (상담 목록)' },
+        { id: 'order_detail', label: '② 상담 상세' },
+        { id: 'chatting',     label: '③ 채팅' },
+        { id: 'schedule',     label: '④ 일정마감' },
+        { id: 'cash',         label: '⑤ 캐시' },
+        { id: 'my',           label: '⑥ 마이페이지' }
+      ]}
     ]}
   ]}
 ];
@@ -233,18 +247,22 @@ var W_MIN = 320, W_MAX = 1920, H_MIN = 300, H_MAX = 2400;
 
 /* ── 상태 ── */
 var state = {
-  flowId: TABS[0].flows[0].id,
-  screenId: TABS[0].flows[0].items[0].id,
-  openFlowId: TABS[0].flows[0].id,
+  flowId: TABS[0].sections[0].groups[0].id,
+  screenId: TABS[0].sections[0].groups[0].items[0].id,
+  openFlowId: TABS[0].sections[0].groups[0].id,
   w: 375, h: 720,
   reloadNonce: 0,
   health: {} // project → 'up' | 'down' | 'unknown'
 };
 
 var $ = function (id) { return document.getElementById(id); };
-var allFlows = TABS.reduce(function (acc, t) { return acc.concat(t.flows); }, []);
+function tabGroups(tab) { return tab.sections.reduce(function (acc, sec) { return acc.concat(sec.groups); }, []); }
+var allFlows = TABS.reduce(function (acc, t) { return acc.concat(tabGroups(t)); }, []);
 function findFlow(id) { for (var i = 0; i < allFlows.length; i++) if (allFlows[i].id === id) return allFlows[i]; return null; }
-function tabOfFlow(id) { for (var i = 0; i < TABS.length; i++) for (var j = 0; j < TABS[i].flows.length; j++) if (TABS[i].flows[j].id === id) return TABS[i]; return TABS[0]; }
+function tabOfFlow(id) {
+  for (var i = 0; i < TABS.length; i++) { var gs = tabGroups(TABS[i]); for (var j = 0; j < gs.length; j++) if (gs[j].id === id) return TABS[i]; }
+  return TABS[0];
+}
 function clamp(v, min, max) { return Math.min(max, Math.max(min, Math.round(v))); }
 function bpLabel(w) { return w < 768 ? 'Mobile' : (w < 1024 ? 'Tablet' : 'Desktop'); }
 function bpColor(w) { return w < 768 ? '#f59e0b' : (w < 1024 ? '#8b5cf6' : '#22c55e'); }
@@ -306,7 +324,18 @@ function renderTabs() {
 }
 function renderNav() {
   var activeTab = tabOfFlow(state.flowId);
-  $('nav').innerHTML = activeTab.flows.map(function (flow) {
+  $('nav').innerHTML = activeTab.sections.map(function (section, sectionIndex) {
+    var head = section.label
+      ? '<div class="pv-nav-sectionhead">' +
+          '<span class="pv-nav-sectionlabel">' + (sectionIndex + 1) + '. ' + section.label + '</span>' +
+          (section.badge ? '<span class="pv-nav-sectionbadge">' + section.badge + '</span>' : '') +
+        '</div>'
+      : '';
+    return '<div class="pv-nav-section">' + head + '<div class="pv-nav-groups">' + renderGroups(section.groups) + '</div></div>';
+  }).join('');
+}
+function renderGroups(groups) {
+  return groups.map(function (flow) {
     var open = state.openFlowId === flow.id;
     var hasActive = state.flowId === flow.id;
     var dot = state.health[flow.project] || 'unknown';
@@ -378,9 +407,10 @@ $('tabs').addEventListener('click', function (e) {
   if (!btn) return;
   var tab = null;
   for (var i = 0; i < TABS.length; i++) if (TABS[i].id === btn.dataset.tab) tab = TABS[i];
-  if (!tab || !tab.flows.length) return;
+  var groups = tab ? tabGroups(tab) : [];
+  if (!tab || !groups.length) return;
   if (tab.id === tabOfFlow(state.flowId).id) return;
-  select(tab.flows[0].id, tab.flows[0].items[0].id);
+  select(groups[0].id, groups[0].items[0].id);
 });
 $('nav').addEventListener('click', function (e) {
   var item = e.target.closest('.pv-nav-item');

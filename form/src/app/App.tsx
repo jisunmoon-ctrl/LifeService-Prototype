@@ -40,7 +40,8 @@ const PANEL_TABS: PanelTab[] = [
     label: "B2C",
     sections: [
       {
-        id: "b2c-flows",
+        id: "b2c-prototype",
+        label: "flow prototype",
         groups: [
           {
             id: "construction-crosssell",
@@ -68,9 +69,15 @@ const PANEL_TABS: PanelTab[] = [
               { id: "est_list", label: "⑥ 매칭 리스트" },
             ],
           },
+        ],
+      },
+      {
+        id: "b2c-prod",
+        label: "flow prod.",
+        groups: [
           {
             id: "moving-form",
-            label: "이사",
+            label: "이사신청폼",
             items: [
               { id: "input_step1", label: "이사종류" },
               { id: "input_step2", label: "이사일/시간대" },
@@ -82,7 +89,7 @@ const PANEL_TABS: PanelTab[] = [
           },
           {
             id: "cleaning-form",
-            label: "이사청소",
+            label: "이사청소 신청폼",
             items: [
               { id: "cleaning_step1", label: "청소 희망일" },
               { id: "cleaning_step2", label: "청소 장소 정보" },
@@ -97,7 +104,7 @@ const PANEL_TABS: PanelTab[] = [
   {
     id: "b2b",
     label: "B2B",
-    sections: [{ id: "b2b-flows", groups: [] }],
+    sections: [{ id: "b2b-prototype", label: "flow prototype", groups: [] }],
   },
 ];
 

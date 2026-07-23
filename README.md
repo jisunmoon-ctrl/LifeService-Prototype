@@ -117,24 +117,34 @@ prototypes/
 
 세 프로토타입 모두 우측 패널 메뉴 상단에 **B2B / B2C 스위칭 탭**(`PanelTab[]`)을 두고, 활성 탭의 플로우 그룹만 노출한다.
 해당 구분의 플로우를 보유하지 않은 프로토타입은 그 탭이 **비활성(disabled)** 으로 표시된다.
-플로우는 탭 바로 하위에 평평하게 배치한다 (섹션 헤더 없음 — `NavMenuSection.label` 생략).
+플로우는 탭 하위에 **섹션(메뉴 구분자)** 으로 묶는다 (`NavMenuSection.label`). 섹션은 2종이다.
+
+| 섹션 | 뜻 |
+|---|---|
+| `flow prototype` | 탐색·검증용 프로토타입 플로우 |
+| `flow prod.` | 운영 반영(또는 반영 예정) 플로우 |
 
 ```
 B2C
-├── 시공신청 크로스셀링 flow          (form)
-├── 견적신청퍼널 UX iteration         (form)
-├── 이사                              (form)
-├── 이사청소                          (form)
-├── 이사홈                            (movingHome)
-└── 책임보장 견적 계약 flow           (movingpartner)
+├── 1. flow prototype
+│   ├── 시공신청 크로스셀링 flow      (form)
+│   ├── 견적신청퍼널 UX iteration     (form)
+│   └── 책임보장 견적 계약 flow       (movingpartner)
+└── 2. flow prod.
+    ├── 이사신청폼                    (form)
+    ├── 이사청소 신청폼               (form)
+    └── 이사홈                        (movingHome)
 
 B2B
-└── 책임보장 견적 발송 flow           (movingpartner)
+└── 1. flow prototype
+    └── 책임보장 견적 발송 flow       (movingpartner)
 ```
 
-- **form**: B2C — 시공신청 크로스셀링 flow · 견적신청퍼널 UX iteration · 이사 · 이사청소 (**시공신청 플로우는 메뉴에서 삭제**) / B2B 없음
-- **movingHome**: B2C — 이사홈 (홈 / 콘텐츠 상세 / 견적 신청) / B2B 없음
-- **movingpartner**: B2C — 책임보장 견적 계약 flow (매칭 파트너 목록·견적 확인 / 약관 동의 / 계약 확정) · B2B — 책임보장 견적 발송 flow (오더 / 상담 상세 / 채팅 / 일정마감 / 캐시 / 마이페이지)
+섹션 번호는 렌더 시 `sectionIndex + 1` 로 자동 부여되므로, 플로우를 한 종류만 가진 프로토타입에서는 `1.` 부터 시작한다.
+
+- **form**: B2C — prototype(시공신청 크로스셀링 flow · 견적신청퍼널 UX iteration) / prod.(이사신청폼 · 이사청소 신청폼) (**시공신청 플로우는 메뉴에서 삭제**) / B2B 없음
+- **movingHome**: B2C — prod.(이사홈 — 홈 / 콘텐츠 상세 / 견적 신청) / B2B 없음
+- **movingpartner**: B2C — prototype(책임보장 견적 계약 flow — 매칭 파트너 목록·견적 확인 / 약관 동의 / 계약 확정) · B2B — prototype(책임보장 견적 발송 flow — 오더 / 상담 상세 / 채팅 / 일정마감 / 캐시 / 마이페이지)
 
 ## 실행
 

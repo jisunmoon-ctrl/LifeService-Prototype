@@ -36,7 +36,8 @@ const PANEL_TABS: PanelTab[] = [
     label: "B2C",
     sections: [
       {
-        id: "b2c-flows",
+        id: "b2c-prod",
+        label: "flow prod.",
         groups: [
           {
             id: "moving-home-flow",
@@ -54,7 +55,7 @@ const PANEL_TABS: PanelTab[] = [
   {
     id: "b2b",
     label: "B2B",
-    sections: [{ id: "b2b-flows", groups: [] }],
+    sections: [{ id: "b2b-prototype", label: "flow prototype", groups: [] }],
   },
 ];
 
